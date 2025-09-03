@@ -84,6 +84,7 @@ $centreonConfPmFile = $centreonEtcPath . '/conf.pm';
 $contents = file_get_contents('../../var/configFilePmTemplate');
 $contents = str_replace(array_keys($macroReplacements), array_values($macroReplacements), $contents);
 file_put_contents($centreonConfPmFile, $contents);
+chmod($centreonConfFile, 0660);
 
 /**
  * Database configuration file
@@ -94,6 +95,7 @@ $contents = str_replace(array_keys($macroReplacements), array_values($macroRepla
 $oldMask = umask(0137);
 file_put_contents($gorgoneDatabaseFile, $contents);
 umask($oldMask);
+chmod($centreonConfFile, 0640);
 
 /**
  * Gorgone API configuration file
