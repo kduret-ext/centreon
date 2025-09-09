@@ -86,7 +86,6 @@ $contents = str_replace(array_keys($macroReplacements), array_values($macroRepla
 $oldMask = umask(0137);
 file_put_contents($centreonConfPmFile, $contents);
 umask($oldMask);
-chmod($centreonConfPmFile, 0660);
 
 /**
  * Database configuration file
