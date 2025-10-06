@@ -19,6 +19,9 @@
  *
  */
 
+use Adaptation\Database\Connection\Collection\QueryParameters;
+use Adaptation\Database\Connection\ValueObject\QueryParameter;
+
 require_once __DIR__ . '/../../../bootstrap.php';
 
 /**
@@ -28,14 +31,125 @@ require_once __DIR__ . '/../../../bootstrap.php';
 $version = 'xx.xx.x';
 $errorMessage = '';
 
-// TODO add your functions here
+/** -------------------------------------- AgentConfiguration updates -------------------------------------- */
+
+/**
+ * Align preexisting Agent Configuration with the new schema:
+ *      - Add is_poller_initiated bool
+ *      - Add is_agent_initiated bool
+ *      - Remove is_reverse bool
+ */
+$alignCMAAgentConfigurationWithNewSchema = function () use ($pearDB, &$errorMessage): void {
+    $errorMessage = 'Unable to align agent configuration with new schema';
+    $agentConfigurations = $pearDB->fetchAllAssociative(
+        <<<'SQL'
+            SELECT * FROM `agent_configuration`
+            WHERE `type` = 'centreon-agent'
+            SQL
+    );
+    if ($agentConfigurations === []) {
+        return;
+    }
+    foreach ($agentConfigurations as $agentConfiguration) {
+        $configuration = json_decode(
+            json: $agentConfiguration['configuration'],
+            associative: true,
+            flags: JSON_THROW_ON_ERROR
+        );
+        $configuration['agent_initiated'] = false;
+        $configuration['poller_initiated'] = false;
+
+        if ($configuration['is_reverse']) {
+            $configuration['poller_initiated'] = true;
+            unset($configuration['is_reverse']);
+        } else {
+            $configuration['agent_initiated'] = true;
+            unset($configuration['is_reverse']);
+        }
+
+        $pearDB->update(
+            <<<'SQL'
+                    UPDATE agent_configuration
+                    SET configuration = :configuration
+                    WHERE id = :id
+                SQL,
+            QueryParameters::create([
+                QueryParameter::string(':configuration', json_encode($configuration, JSON_THROW_ON_ERROR)),
+                QueryParameter::int(':id', $agentConfiguration['id']),
+            ])
+        );
+    }
+};
+
+$cleanGlobalMacrosName = function () use ($pearDB, &$errorMessage): void {
+    $errorMessage = 'Failed to update cfg_resource table';
+    $invalidMacros = $pearDB->fetchAllAssociative(
+        <<<'SQL'
+            SELECT resource_id, resource_name FROM cfg_resource
+            WHERE resource_name NOT LIKE '\$%' OR resource_name NOT LIKE '%\$'
+            SQL
+    );
+
+    foreach ($invalidMacros as $macro) {
+        $newName = $macro['resource_name'];
+        if (str_starts_with($newName, '$') === false) {
+            $newName = '$' . $newName;
+        }
+        if (str_ends_with($newName, '$') === false) {
+            $newName .= '$';
+        }
+        $pearDB->update(
+            <<<'SQL'
+                UPDATE cfg_resource
+                SET resource_name = :resource_name
+                WHERE resource_id = :id
+                SQL,
+            QueryParameters::create([
+                QueryParameter::string(':resource_name', $newName),
+                QueryParameter::int(':id', (int) $macro['resource_id']),
+            ])
+        );
+    }
+};
+
+$fixTypoInStandardMacroName = function () use ($pearDB, &$errorMessage): void {
+    $errorMessage = 'Failed to fix typo in standard macro name';
+    $pearDB->update(
+        <<<'SQL'
+                UPDATE nagios_macro SET macro_name = '$TOTALHOSTSUNREACHABLEUNHANDLED$' WHERE macro_id = 65
+            SQL
+    );
+};
+
+/** -------------------------------------- Broker configuration -------------------------------------- */
+$fixBrokerConfigTypo = function () use ($pearDB, &$errorMessage): void {
+    $errorMessage = 'Failed to fix typo in broker configuration';
+    $pearDB->executeStatement(
+        <<<'SQL'
+            UPDATE cfg_centreonbroker_info SET config_key = 'negotiation' WHERE config_key = 'negociation'
+            SQL
+    );
+};
+
+/** -------------------------------------- Engine Configuration updates -------------------------------------- */
+$addOpentelemetryLogLevelColumn = function () use ($pearDB, &$errorMessage): void {
+    $errorMessage = 'Failed to add log_level_otl column to cfg_nagios_logger table';
+    if (! $pearDB->isColumnExist('cfg_nagios_logger', 'log_level_otl')) {
+        $pearDB->query(
+            <<<'SQL'
+                ALTER TABLE `cfg_nagios_logger`
+                ADD COLUMN `log_level_otl` enum('trace', 'debug', 'info', 'warning', 'err', 'critical', 'off') DEFAULT 'err'
+                SQL
+        );
+    }
+};
 
 try {
     // DDL statements for real time database
     // TODO add your function calls to update the real time database structure here
 
     // DDL statements for configuration database
-    // TODO add your function calls to update the configuration database structure here
+    $addOpentelemetryLogLevelColumn();
 
     // Transactional queries for configuration database
     if (! $pearDB->inTransaction()) {
@@ -43,6 +157,10 @@ try {
     }
 
     // TODO add your function calls to update the configuration database data here
+    $alignCMAAgentConfigurationWithNewSchema();
+    $cleanGlobalMacrosName();
+    $fixTypoInStandardMacroName();
+    $fixBrokerConfigTypo();
 
     $pearDB->commit();
 
