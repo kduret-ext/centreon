@@ -83,9 +83,24 @@ try {
     $result_host_templates_relation = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // get host macros
-    $stmt = $db_centreon->prepare("SELECT host_host_id, host_macro_name, host_macro_value FROM on_demand_macro_host");
-    $stmt->execute();
-    $result_host_macros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $hostIds = array_column($result_hosts, 'host_id');
+    if (!empty($hostIds)) {
+        $placeholders = [];
+        foreach ($hostIds as $index => $id) {
+            $placeholder = ':id' . $index;
+            $placeholders[] = $placeholder;
+        }
+        $inQuery = implode(',', $placeholders);
+        $sql = "SELECT host_host_id, host_macro_name, host_macro_value FROM on_demand_macro_host WHERE host_host_id IN ($inQuery)";
+        $stmt = $db_centreon->prepare($sql);
+        foreach ($hostIds as $index => $id) {
+            $stmt->bindValue(':id' . $index, $id, PDO::PARAM_INT);
+        }
+        $stmt->execute();
+        $result_host_macros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $result_host_macros = [];
+    }
 
     // get services
     $stmt = $db_centreon->prepare("SELECT host.host_id, service.service_id, service.service_description, service.service_template_model_stm_id, extended_service_information.esi_notes
