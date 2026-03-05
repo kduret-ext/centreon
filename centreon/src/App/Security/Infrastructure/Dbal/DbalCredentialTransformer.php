@@ -86,6 +86,7 @@ final readonly class DbalCredentialTransformer implements TransformerInterface
         }
 
         if ($isAdmin) {
+            $credential->assignRole(new Role('ROLE_ADMIN'));
             foreach (array_keys(self::LEGACY_ROLE_MAP) as $roleString) {
                 $credential->grantPermission(new Permission(self::LEGACY_ROLE_MAP[$roleString]));
             }
