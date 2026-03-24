@@ -24960,3 +24960,11 @@ msgstr "Commande copiée !"
 
 msgid "Failed to copy the command!"
 msgstr "Échec de la copie de la commande !"
+
+#: src/CentreonRemote/Infrastructure/Service/PollerInteractionService.php
+msgid "Engine restart command does not match the expected format. Please check the monitoring server configuration."
+msgstr "La commande de redémarrage du moteur ne correspond pas au format attendu. Veuillez vérifier la configuration du serveur de supervision."
+
+#: www/class/centreonBroker.class.php
+msgid "Broker reload command does not match the expected format. Please check the monitoring server configuration."
+msgstr "La commande de rechargement du broker ne correspond pas au format attendu. Veuillez vérifier la configuration du serveur de supervision."
