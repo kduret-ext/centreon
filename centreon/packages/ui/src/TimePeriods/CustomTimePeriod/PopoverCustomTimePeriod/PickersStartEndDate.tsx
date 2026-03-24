@@ -1,3 +1,8 @@
+/** biome-ignore-all lint/a11y/useAriaPropsSupportedByRole: need it */
+import { Typography } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
@@ -6,23 +11,18 @@ import { equals } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
 
-import { Typography } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
+import { useLocale } from '../../../utils';
 import DateTimePickerInput from '../../DateTimePickerInput';
 import { isInvalidDate } from '../../helpers';
 import {
   CustomTimePeriodProperty,
-  DateTimePickerInputModel
+  type DateTimePickerInputModel
 } from '../../models';
 import { errorTimePeriodAtom } from '../../timePeriodsAtoms';
-
-import { useLocale } from '../../../utils';
 import ErrorText from './ErrorText';
 import {
   PickersStartEndDateDirection,
-  PickersStartEndDateProps
+  type PickersStartEndDateProps
 } from './models';
 
 dayjs.extend(utc);
@@ -107,14 +107,16 @@ const PickersStartEndDate = ({
   const maxEnd = rangeEndDate?.max;
   const minEnd = rangeEndDate?.min || startDate;
 
-  const isColumn = equals(direction, PickersStartEndDateDirection.column)
+  const isColumn = equals(direction, PickersStartEndDateDirection.column);
 
   return (
     <LocalizationProvider
       adapterLocale={locale.substring(0, 2)}
       dateAdapter={AdapterDayjs}
     >
-      <div className={`flex ${isColumn ? 'flex-col justify-center' : 'flex-row items-center py-2 px-4'} gap-2 ${className}`}>
+      <div
+        className={`flex ${isColumn ? 'flex-col justify-center' : 'flex-row items-center py-2 px-4'} gap-2 ${className}`}
+      >
         <PickerDateWithLabel
           changeDate={changeDate}
           date={startDate}
