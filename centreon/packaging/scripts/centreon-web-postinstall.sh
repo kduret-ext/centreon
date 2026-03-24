@@ -208,7 +208,7 @@ case "$action" in
     fixSymfonyCacheRights $package_type
     rebuildSymfonyCache $package_type
     fixCentreonCronPermissions $package_type
-    gorgone-update-configuration.pl websocket $package_type
+    gorgone-update-configuration websocket $package_type
 
     ;;
   *)
