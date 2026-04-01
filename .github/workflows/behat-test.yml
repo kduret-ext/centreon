@@ -204,7 +204,7 @@ jobs:
         run: find ./acceptance-logs -type f | grep '.txt' | xargs -r more | cat
         shell: bash
 
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         if: failure()
         name: Upload acceptance test logs
         with:
@@ -214,7 +214,7 @@ jobs:
 
       - name: Upload Test Results
         if: failure()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: ${{ inputs.name }}-${{ inputs.os }}-${{ needs.behat-test-list.outputs.db_id }}-test-reports-${{ steps.feature-path.outputs.feature_name_with_dash }}
           path: xunit-reports
@@ -253,7 +253,7 @@ jobs:
         type_of_report: [test-logs, test-reports]
     steps:
       - name: Merge Artifacts
-        uses: actions/upload-artifact/merge@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact/merge@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         if: ${{ contains(needs.behat-test-run.result, 'failure') }}
         with:
           name: ${{ inputs.name }}-${{ inputs.os }}-${{ needs.behat-test-list.outputs.db_id }}-${{ matrix.type_of_report }}
