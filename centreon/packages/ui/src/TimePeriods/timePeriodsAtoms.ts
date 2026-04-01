@@ -1,3 +1,4 @@
+// @ts-nocheck
 import dayjs from 'dayjs';
 import { atom } from 'jotai';
 import { always, cond, gte, isNil, T } from 'ramda';

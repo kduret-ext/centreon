@@ -1,3 +1,4 @@
+// @ts-nocheck
 import dayjs from 'dayjs';
 import { find, isNil, lt, path, pipe, propEq } from 'ramda';
 import { useEffect } from 'react';

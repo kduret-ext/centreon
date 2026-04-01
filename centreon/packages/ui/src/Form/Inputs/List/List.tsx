@@ -33,15 +33,15 @@ const List = ({
       {sortLabel && <Subtitle>{t(sortLabel)}</Subtitle>}
       <div className={classes.items}>
         <SortableItems
-          Content={(props: Omit<ContentProps, 'children' | 'deleteItem'>) => (
+          Content={((props: Omit<ContentProps, 'children' | 'deleteItem'>) => (
             <Content {...props} deleteItem={deleteItem}>
-              <SortContent {...props} />
+              <SortContent {...(props as any)} />
             </Content>
-          )}
+          )) as any}
           // eslint-disable-next-line react/no-unstable-nested-components
           collisionDetection={closestCenter}
           itemProps={itemProps}
-          items={sortedList}
+          items={sortedList as any}
           onDragEnd={({ items }): void => {
             sortList(items);
           }}

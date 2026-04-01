@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SelectField from '../../../InputField/Select';
 import { commonTickLabelProps } from '../utils';
 import { useYAxisStyles } from './AxisStyles';

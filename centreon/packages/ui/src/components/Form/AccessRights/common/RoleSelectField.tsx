@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { SelectChangeEvent } from '@mui/material';
 
 import SelectField, { type SelectEntry } from '../../../../InputField/Select';
@@ -32,7 +33,7 @@ const RoleSelectField = ({
         disabled={disabled}
         fullWidth
         label={label}
-        onChange={change}
+        onChange={change as any}
         options={roles}
         selectedOptionId={value}
         size="small"

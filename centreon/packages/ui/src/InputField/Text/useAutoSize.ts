@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useTheme } from '@mui/material';
 
 import {

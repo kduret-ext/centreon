@@ -37,9 +37,9 @@ const MenuProvider = ({
     [
       [isMenuOpenAtom, initialIsOpen ?? false],
       [anchorElAtom, null],
-      [onOpenAtom, onOpen],
-      [onCloseAtom, onClose]
-    ],
+      [onOpenAtom, onOpen ?? null],
+      [onCloseAtom, onClose ?? null]
+    ] as any,
     { store: menuStore }
   );
 

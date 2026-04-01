@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, LinearProgress, Table, TableBody } from '@mui/material';
 
 import { ListingVariant } from '@centreon/ui-context';

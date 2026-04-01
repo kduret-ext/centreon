@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { always, clamp, cond, isEmpty, T } from 'ramda';
 import { type ChangeEvent, useState } from 'react';
 

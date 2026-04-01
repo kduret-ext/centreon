@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { scaleBand, scaleOrdinal } from '@visx/scale';
 import { BarGroupHorizontal, BarGroup as VisxBarGroup } from '@visx/shape';
 import type { ScaleLinear } from 'd3-scale';

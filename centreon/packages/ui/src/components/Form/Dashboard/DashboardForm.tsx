@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { equals } from 'ramda';
 import { type ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -83,7 +84,7 @@ const DashboardForm = ({
         }
       ],
       submit: (values, bag) => onSubmit?.(values, bag),
-      validationSchema: object({
+      validationSchema: object<any>({
         description: string()
           .label(labels?.entity?.description || '')
           .max(

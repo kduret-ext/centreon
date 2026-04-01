@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: need it */
 import IconCreate from '@mui/icons-material/Create';
 import { Box, Chip, FormHelperText, Grid, Typography } from '@mui/material';

@@ -49,7 +49,7 @@ const Radio = ({
     }
 
     if (change) {
-      change({ setFieldTouched, setFieldValue, setValues, value, values });
+      change({ setFieldTouched, setFieldValue, setValues, value, values } as any);
 
       return;
     }

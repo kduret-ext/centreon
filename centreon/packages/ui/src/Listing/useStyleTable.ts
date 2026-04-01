@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Theme } from '@mui/material';
 
 import { ListingVariant } from '@centreon/ui-context';

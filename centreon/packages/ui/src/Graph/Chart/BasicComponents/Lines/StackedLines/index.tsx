@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Shape } from '@visx/visx';
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
 import {

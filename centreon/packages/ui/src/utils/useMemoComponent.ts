@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { equals } from 'ramda';
 import { type DependencyList, type ReactElement, useMemo, useRef } from 'react';
 

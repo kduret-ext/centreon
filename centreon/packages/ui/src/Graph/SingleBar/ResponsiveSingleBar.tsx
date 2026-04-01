@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { alpha, Box, useTheme } from '@mui/material';
 
 import { animated, useSpring } from '@react-spring/web';

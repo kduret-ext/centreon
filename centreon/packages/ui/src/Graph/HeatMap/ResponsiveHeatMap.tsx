@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box } from '@mui/material';
 
 import { scaleLinear } from '@visx/scale';

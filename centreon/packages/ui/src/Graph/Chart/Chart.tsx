@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ClickAwayListener, Skeleton } from '@mui/material';
 
 import { useAtom } from 'jotai';

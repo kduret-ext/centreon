@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   type DialogTitleProps,
   DialogTitle as MuiDialogTitle

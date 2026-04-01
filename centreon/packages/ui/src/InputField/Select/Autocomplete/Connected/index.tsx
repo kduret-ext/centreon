@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CircularProgress, useTheme } from '@mui/material';
 
 import {

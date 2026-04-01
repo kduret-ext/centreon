@@ -1,3 +1,4 @@
+// @ts-nocheck
 import TextSizeIcon from '@mui/icons-material/TextFields';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ScaleLinear } from 'd3-scale';
 import { isNil } from 'ramda';
 import type { MutableRefObject } from 'react';

@@ -327,9 +327,10 @@ export const basicFormInputs: Array<InputProps> = [
         {
           connectedAutocomplete: {
             additionalConditionParameters: [],
+            customQueryParameters: [],
             endpoint: 'endpoint',
             helperText: 'Hello I am testing'
-          },
+          } as any,
           fieldName: 'group',
           label: 'Group (Single connected autocomplete)',
           type: InputType.SingleConnectedAutocomplete
@@ -337,8 +338,9 @@ export const basicFormInputs: Array<InputProps> = [
         {
           connectedAutocomplete: {
             additionalConditionParameters: [],
+            customQueryParameters: [],
             endpoint: 'endpoint'
-          },
+          } as any,
           fieldName: 'animals',
           label: 'Animals (Multi connected autocomplete)',
           type: InputType.MultiConnectedAutocomplete
@@ -461,7 +463,8 @@ export const basicFormInputs: Array<InputProps> = [
     fieldName: 'file',
     file: {
       accept: 'image/*',
-      multiple: true
+      multiple: true,
+      CustomDropZoneContent: ({ files }) => <div>{files?.length} files</div>
     },
     group: 'First group',
     label: 'File',

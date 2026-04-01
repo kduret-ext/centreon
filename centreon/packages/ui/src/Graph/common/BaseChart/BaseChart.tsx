@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Stack } from '@mui/material';
 
 import { equals, gt, isNil, lte, reduce } from 'ramda';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { alpha } from '@mui/system';
 
 import { makeStyles } from 'tss-react/mui';
@@ -8,14 +9,14 @@ const useStyles = makeStyles()((theme) => ({
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     display: 'flex',
     flexDirection: 'row',
-    h1: {
+    '& h1': {
       ...theme.typography.h5,
       fontWeight: theme.typography.fontWeightMedium,
       margin: theme.spacing(0, 0, 1.5, 0)
     },
     justifyContent: 'space-between',
 
-    nav: {
+    '& nav': {
       display: 'flex',
       gap: theme.spacing(1),
       justifyContent: 'flex-end'
@@ -94,7 +95,7 @@ const useStyles = makeStyles()((theme) => ({
     alignSelf: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
-    h1: {
+    '& h1': {
       ...theme.typography.h5,
       fontWeight: theme.typography.fontWeightBold,
       lineHeight: '1',

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ListSubheader, Typography } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';

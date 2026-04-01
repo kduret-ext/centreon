@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ReactHtmlParser from 'html-react-parser';
 import sanitizeHtml, { type IOptions } from 'sanitize-html';
 

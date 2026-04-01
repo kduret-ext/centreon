@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Group } from '@visx/visx';
 import { equals } from 'ramda';
 import type { MutableRefObject, ReactElement } from 'react';

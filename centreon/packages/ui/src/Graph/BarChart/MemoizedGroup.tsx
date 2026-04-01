@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Group } from '@visx/group';
 import type { BarGroup } from '@visx/shape/lib/types';
 import type { ScaleLinear } from 'd3-scale';

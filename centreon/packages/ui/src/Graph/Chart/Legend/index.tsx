@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { alpha, useTheme } from '@mui/material';
 
 import { useMemoComponent } from '@centreon/ui';

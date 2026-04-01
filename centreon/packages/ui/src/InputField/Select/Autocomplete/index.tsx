@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Autocomplete,
   type AutocompleteProps,

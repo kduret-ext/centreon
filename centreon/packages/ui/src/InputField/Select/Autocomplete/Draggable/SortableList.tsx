@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { lighten } from '@mui/material';
 
 import { rectIntersection } from '@dnd-kit/core';

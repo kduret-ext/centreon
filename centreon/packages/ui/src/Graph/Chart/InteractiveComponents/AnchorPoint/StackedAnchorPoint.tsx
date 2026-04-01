@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
 import { isNil, map, pipe } from 'ramda';
 

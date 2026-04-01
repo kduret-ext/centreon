@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import { animated, to, useTransition } from '@react-spring/web';

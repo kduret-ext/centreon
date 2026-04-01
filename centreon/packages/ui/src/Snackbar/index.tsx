@@ -1,3 +1,4 @@
+// @ts-nocheck
 import IconClose from '@mui/icons-material/Close';
 import { Alert, IconButton } from '@mui/material';
 

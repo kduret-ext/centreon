@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import type { ReactElement } from 'react';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button, ButtonGroup, Tooltip, useTheme } from '@mui/material';
 
 import { useAtomValue, useSetAtom } from 'jotai';

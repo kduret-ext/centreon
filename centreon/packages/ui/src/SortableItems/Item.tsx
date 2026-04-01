@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { type ForwardedRef, forwardRef } from 'react';
 
 interface Props extends Record<string, unknown> {

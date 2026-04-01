@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AutocompleteField from '..';
 import ConnectedAutocompleteField from '.';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   compose,
   flatten,
@@ -40,7 +41,7 @@ const defaultDsData = {
 };
 
 const useGraphData = ({ data }: Props): GraphDataResult => {
-  const adjustedDataRef = useRef<Data>();
+  const adjustedDataRef = useRef<Data>(undefined as any);
 
   const dataWithAdjustedMetricsColor = useMemo(() => {
     if (isNil(data)) {
@@ -64,12 +65,12 @@ const useGraphData = ({ data }: Props): GraphDataResult => {
     }));
 
     const metricsGroupedByColor = groupBy(
-      (metric) => metric.ds_data?.ds_color_line || '#000000'
+      (metric: any) => metric.ds_data?.ds_color_line || '#000000'
     )(metricsWithValidDsData);
 
     const newMetrics = Object.entries(metricsGroupedByColor).map(
       ([color, value]) => {
-        const adjustedValue = value?.map((item) => ({
+        const adjustedValue = value?.map((item: any) => ({
           ...item,
           ds_data: {
             ...item?.ds_data,

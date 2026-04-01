@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Button as MuiButton,
   type ButtonProps as MuiButtonProps

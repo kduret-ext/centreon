@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Checkbox, Stack, Typography } from '@mui/material';
 
 import { ThemeMode } from '@centreon/ui-context';

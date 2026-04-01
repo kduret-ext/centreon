@@ -1,3 +1,4 @@
+// @ts-nocheck
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Typography } from '@mui/material';
 

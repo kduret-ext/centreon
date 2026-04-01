@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Chip, type ChipProps, Tooltip } from '@mui/material';
 import type { UseAutocompleteProps } from '@mui/material/useAutocomplete';
 

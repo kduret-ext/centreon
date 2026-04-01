@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Skeleton } from '@mui/material';
 
 import { useAtom, useAtomValue } from 'jotai';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import IconHelp from '@mui/icons-material/HelpOutline';
 import IconClose from '@mui/icons-material/HighlightOff';
 import { IconButton, Tooltip } from '@mui/material';

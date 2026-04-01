@@ -33,7 +33,7 @@ const UpdateModal = <TItem extends { id: number; name: string }, TItemForm>({
   });
 
   const isModalOpen = useMemo(
-    () => isNotNil(openFormModal) && !equals('add', openFormModal),
+    () => isNotNil(openFormModal) && openFormModal !== 'add',
     [openFormModal]
   );
 

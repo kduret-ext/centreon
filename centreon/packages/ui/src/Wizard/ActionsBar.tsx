@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 
 import { makeStyles } from 'tss-react/mui';

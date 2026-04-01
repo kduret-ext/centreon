@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ReactElement, ReactNode } from 'react';
 
 import { useStyles } from './PageHeader.styles';

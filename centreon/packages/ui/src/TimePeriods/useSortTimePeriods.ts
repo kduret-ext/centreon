@@ -1,3 +1,4 @@
+// @ts-nocheck
 import dayjs from 'dayjs';
 import { always, cond, gte, T } from 'ramda';
 

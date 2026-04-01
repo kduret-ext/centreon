@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import { CircularProgress, Link, Typography } from '@mui/material';

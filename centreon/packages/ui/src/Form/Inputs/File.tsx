@@ -32,7 +32,7 @@ const File = ({
 
   const changeFiles = (newFiles: FileList | null): void => {
     if (change) {
-      change({ setFieldTouched, setFieldValue, value: newFiles });
+      change({ setFieldTouched, setFieldValue, value: newFiles } as any);
 
       return;
     }

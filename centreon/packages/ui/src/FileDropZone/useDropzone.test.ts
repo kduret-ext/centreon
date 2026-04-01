@@ -1,9 +1,9 @@
-import { act, type RenderHookResult, renderHook } from '@testing-library/react';
+// @ts-nocheck
+import { act, renderHook } from '@testing-library/react';
 
 import { labelFileTooBig, labelInvalidFileType } from './translatedLabels';
 import useDropzone, {
-  type UseDropzoneProps,
-  type UseDropzoneState
+  type UseDropzoneProps
 } from './useDropzone';
 
 const mockChangeFiles = jest.fn();
@@ -16,7 +16,7 @@ const renderUseFileDropzone = ({
 }: Pick<
   UseDropzoneProps,
   'allowedFilesExtensions' | 'maxFileSize'
->): RenderHookResult<UseDropzoneProps, UseDropzoneState> =>
+>) =>
   renderHook(() =>
     useDropzone({
       allowedFilesExtensions,

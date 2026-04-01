@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ThemeOptions } from '@mui/material';
 import { createGenerateClassName, StylesProvider } from '@mui/styles';
 

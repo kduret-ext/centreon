@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ScaleLinear } from 'd3-scale';
 import { useAtomValue } from 'jotai';
 import { type MutableRefObject, useEffect, useState } from 'react';

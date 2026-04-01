@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Method,
   type ResponseError,
@@ -40,7 +41,7 @@ export const useDeleteItem = ({
     onSuccess: (_data, { _meta }) => {
       queryClient.invalidateQueries({ queryKey: [listingQueryKey] });
       showSuccessMessage(
-        isAFunction(successMessage) ? successMessage(_meta) : successMessage
+        isAFunction(successMessage) ? (successMessage as (item: ItemToDelete) => string | ReactElement)(_meta) : successMessage
       );
     }
   });

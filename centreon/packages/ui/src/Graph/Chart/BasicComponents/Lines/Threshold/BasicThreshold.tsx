@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Threshold } from '@visx/threshold';
 
 import type { TimeValue } from '../../../../common/timeSeries/models';

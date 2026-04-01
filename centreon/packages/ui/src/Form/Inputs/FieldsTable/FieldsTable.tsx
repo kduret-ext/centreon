@@ -277,7 +277,7 @@ const FieldsTable = ({
         return acc;
       }
 
-      row.priority = index;
+      (row as any).priority = index;
 
       return acc;
     }, clone(tableValues));

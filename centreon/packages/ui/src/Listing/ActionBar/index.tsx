@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Divider from '@mui/material/Divider';

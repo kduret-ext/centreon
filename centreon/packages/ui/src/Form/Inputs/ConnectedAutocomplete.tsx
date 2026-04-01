@@ -99,7 +99,7 @@ const ConnectedAutocomplete = ({
     [fieldName, touched, additionalMemoProps]
   );
 
-  const blur = (): void => setFieldTouched(fieldName, true);
+  const blur = (): void => void setFieldTouched(fieldName, true);
 
   const isOptionEqualToValue = useCallback(
     (option, value): boolean => {
@@ -110,7 +110,7 @@ const ConnectedAutocomplete = ({
     [filterKey]
   );
 
-  const value = path(fieldNamePath, values);
+  const value = path(fieldNamePath, values) as any;
 
   const error = path(fieldNamePath, touched)
     ? path(fieldNamePath, errors)

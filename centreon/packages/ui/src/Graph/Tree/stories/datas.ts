@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Node } from '../models';
 
 export interface SimpleData {

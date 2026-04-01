@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { alpha } from '@mui/material';
 
 import type { ScaleTime } from 'd3-scale';

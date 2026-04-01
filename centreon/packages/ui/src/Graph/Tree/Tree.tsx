@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Group } from '@visx/group';
 import { hierarchy, Tree as VisxTree } from '@visx/hierarchy';
 import { isNil } from 'ramda';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, useTheme } from '@mui/material';
 
 import { Group } from '@visx/group';

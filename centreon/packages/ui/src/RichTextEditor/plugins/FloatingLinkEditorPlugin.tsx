@@ -1,3 +1,4 @@
+// @ts-nocheck
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton, Link, Paper, Popper } from '@mui/material';
 

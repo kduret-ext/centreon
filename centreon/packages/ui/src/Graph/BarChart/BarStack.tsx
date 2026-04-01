@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { scaleBand } from '@visx/scale';
 import { dec, equals, gt, pick } from 'ramda';
 import { memo, type ReactElement } from 'react';

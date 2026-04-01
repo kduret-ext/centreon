@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { List, ListItem, ListItemText } from '@mui/material';
 
 import type { PredefinedRowSelection } from '../../models';

@@ -28,7 +28,7 @@ export const useList = ({ fieldName }): UseListState => {
 
   const sortedList = useMemo(
     () =>
-      sortBy(prop('order'), list).map(({ id, ...props }) => ({
+      sortBy(prop('order') as any, list).map(({ id, ...props }: any) => ({
         id: `${id}`,
         ...props
       })),
@@ -50,14 +50,14 @@ export const useList = ({ fieldName }): UseListState => {
   };
 
   const deleteItem = (id: string) => (): void => {
-    const newItems = reject((item) => equals(Number(id), item.id))(list);
+    const newItems = reject((item: any) => equals(Number(id), item.id))(list);
 
     setFieldValue(fieldName, newItems);
   };
 
   const sortList = (items: Array<string>): void => {
     const newOrderedList = items.map((itemId, idx) => {
-      const item = sortedList.find(({ id }) => equals(id, itemId));
+      const item = sortedList.find(({ id }: any) => equals(id, itemId));
 
       return {
         ...item,

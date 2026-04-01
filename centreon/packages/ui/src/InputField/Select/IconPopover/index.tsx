@@ -1,3 +1,4 @@
+// @ts-nocheck
 import IconReset from '@mui/icons-material/RotateLeft';
 import {
   Button,

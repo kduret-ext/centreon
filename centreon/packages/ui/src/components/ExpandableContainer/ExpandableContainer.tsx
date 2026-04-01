@@ -42,17 +42,8 @@ const ExpandableContainer = ({ children }: Props) => {
       {children(reducedChildrenData)}
       {isExpanded && (
         <Modal
-          classes={{
-            paper: classes.papper
-          }}
           hasCloseButton={false}
           open={isExpanded}
-          PaperProps={{
-            style: {
-              maxWidth: '90vw',
-              width: '90vw'
-            }
-          }}
           size="xlarge"
         >
           {children(expandedChildrenData)}

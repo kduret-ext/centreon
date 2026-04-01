@@ -81,7 +81,7 @@ const TextOverflowTooltip = ({
 
   useResizeObserver({
     onResize,
-    ref: elRef
+    ref: elRef as any
   });
 
   useEffect(() => {

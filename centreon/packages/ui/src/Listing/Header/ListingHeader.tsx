@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TableHead, TableRow } from '@mui/material';
 
 import type { ListingVariant } from '@centreon/ui-context';

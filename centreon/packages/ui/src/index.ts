@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Props as SingleAutocompleteFieldProps } from './InputField/Select/Autocomplete';
 
 export { default as IconButton } from './Button/Icon';

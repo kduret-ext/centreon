@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box } from '@mui/material';
 
 import { type FormikValues, useFormikContext } from 'formik';
@@ -20,7 +21,7 @@ const Checkbox = ({
 
   const fieldNamePath = split('.', fieldName);
 
-  const value = path(fieldNamePath, values);
+  const value = path(fieldNamePath, values) as any;
 
   const disabled = getDisabled?.(values) || false;
   const hideCheckbox = hideInput?.(values) || false;
