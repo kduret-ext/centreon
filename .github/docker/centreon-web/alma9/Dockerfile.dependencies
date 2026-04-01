@@ -126,12 +126,21 @@ ARG STABILITY
 
 RUN bash -e <<EOF
 
-dnf install -y \
-  centreon-common \
-  centreon-gorgone \
-  centreon-engine \
-  centreon-broker-cbd \
-  centreon-connector
+if [[ "$STABILITY" == "stable" ]]; then
+  dnf install -y \
+    centreon-common-${MAJOR_VERSION}.0 \
+    centreon-gorgone-${MAJOR_VERSION}.0 \
+    centreon-engine-${MAJOR_VERSION}.0 \
+    centreon-broker-cbd-${MAJOR_VERSION}.0 \
+    centreon-connector-${MAJOR_VERSION}.0
+else
+  dnf install -y \
+    centreon-common \
+    centreon-gorgone \
+    centreon-engine \
+    centreon-broker-cbd \
+    centreon-connector
+fi
 
 dnf clean all --enablerepo=*
 
