@@ -134,6 +134,7 @@ if [[ "$STABILITY" == "stable" ]]; then
     centreon-engine-daemon=${MAJOR_VERSION}.0-*+deb12u1 \
     centreon-broker=${MAJOR_VERSION}.0-*+deb12u1 \
     centreon-broker-cbd=${MAJOR_VERSION}.0-*+deb12u1 \
+    centreon-broker-cbmod=${MAJOR_VERSION}.0-*+deb12u1 \
     centreon-broker-core=${MAJOR_VERSION}.0-*+deb12u1 \
     centreon-clib=${MAJOR_VERSION}.0-*+deb12u1 \
     centreon-connector=${MAJOR_VERSION}.0-*+deb12u1 \
