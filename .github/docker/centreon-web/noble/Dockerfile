@@ -30,6 +30,7 @@ if [[ "$STABILITY" == "stable" ]]; then
   apt-get install -y \
     centreon-poller=${MAJOR_VERSION}.0-*-0ubuntu.24.04 \
     centreon-trap=${MAJOR_VERSION}.0-*-0ubuntu.24.04 \
+    centreon-perl-libs=${MAJOR_VERSION}.0-*-0ubuntu.24.04 \
     centreon-web=${MAJOR_VERSION}.0-*-0ubuntu.24.04
 else
   apt-get install -y /tmp/packages-centreon/centreon-*.deb
