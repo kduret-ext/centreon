@@ -203,7 +203,7 @@ jobs:
           pull: true
           load: true
           tags: |
-            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}-latest
+            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}.0
             ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-${{ matrix.distrib }}:${{ inputs.release_bundle_tag }}
           secrets: |
             "ARTIFACTORY_INTERNAL_REPO_USERNAME=${{ secrets.ARTIFACTORY_INTERNAL_REPO_USERNAME }}"
@@ -230,7 +230,7 @@ jobs:
           pull: false
           push: true
           tags: |
-            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-collect-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}-latest
+            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-collect-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}.0
             ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-dependencies-collect-${{ matrix.distrib }}:${{ inputs.release_bundle_tag }}
 
       - name: Build and push web image
@@ -248,7 +248,7 @@ jobs:
           pull: false
           push: true
           tags: |
-            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}-latest
+            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}.0
             ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-web-${{ matrix.distrib }}:${{ inputs.release_bundle_tag }}
 
       - name: Build and push OSS image
@@ -268,5 +268,5 @@ jobs:
           pull: false
           push: true
           tags: |
-            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-oss-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}-latest
+            ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-oss-${{ matrix.distrib }}:${{ needs.check-inputs.outputs.major_version }}.0
             ${{ vars.DOCKER_INTERNAL_REGISTRY_URL }}/centreon-oss-${{ matrix.distrib }}:${{ inputs.release_bundle_tag }}
