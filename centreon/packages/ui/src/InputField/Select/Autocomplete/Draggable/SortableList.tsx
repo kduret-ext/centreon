@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { lighten } from '@mui/material';
 
 import { rectIntersection } from '@dnd-kit/core';
@@ -47,10 +46,9 @@ const SortableList = ({
 
   const dragEnd = ({ items: newItems }): void =>
     changeItemsOrder(
-      map(
-        (item) => find(propEq(item, 'id'), items),
-        newItems
-      ) as Array<DraggableSelectEntry>
+      (newItems as Array<string>).map(
+        (item) => find(propEq(item, 'id'), items) as DraggableSelectEntry
+      )
     );
 
   return (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import type { ReactElement } from 'react';
@@ -50,7 +49,7 @@ const LegendHeader = ({
                     data={formatMetricValue({
                       unit: line.unit,
                       value: subValue
-                    })}
+                    }) ?? ''}
                     key={label}
                     label={label}
                   />

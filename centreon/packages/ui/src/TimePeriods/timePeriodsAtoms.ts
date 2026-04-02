@@ -1,4 +1,3 @@
-// @ts-nocheck
 import dayjs from 'dayjs';
 import { atom } from 'jotai';
 import { always, cond, gte, isNil, T } from 'ramda';
@@ -28,7 +27,7 @@ export const getNewCustomTimePeriod = ({
     .duration(dayjs(end).diff(dayjs(start)))
     .asDays();
 
-  const timelineEventsLimit = cond<number, number>([
+  const timelineEventsLimit = cond<[number], number>([
     [gte(1), always(20)],
     [gte(7), always(100)],
     [T, always(500)]

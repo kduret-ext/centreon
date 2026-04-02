@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTheme } from '@mui/material';
 
 import { scaleOrdinal } from '@visx/scale';
@@ -25,10 +24,11 @@ const PieData = ({
 >): JSX.Element => {
   const theme = useTheme();
 
-  const pieData = [metric.data[0], adaptedMaxValue - metric.data[0]];
+  const metricValue = metric.data[0] ?? 0;
+  const pieData = [metricValue, adaptedMaxValue - metricValue];
   const pieColor = getColorFromDataAndTresholds({
     baseColor,
-    data: metric.data[0],
+    data: metricValue,
     theme,
     thresholds
   });
@@ -50,7 +50,7 @@ const PieData = ({
         radius - thresholdThickness * thresholdThicknessFactor * 1.25
       }
       pieSortValues={() => -1}
-      pieValue={identity}
+      pieValue={identity as (d: number) => number}
     >
       {(pie) => (
         <AnimatedPie<number>

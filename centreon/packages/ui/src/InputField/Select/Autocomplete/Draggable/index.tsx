@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import {
@@ -14,8 +13,7 @@ import {
   pipe,
   pluck,
   propEq,
-  remove,
-  type
+  remove
 } from 'ramda';
 import { type ChangeEvent, useEffect, useState } from 'react';
 
@@ -94,8 +92,8 @@ const DraggableAutocomplete = (
         return;
       }
       const lastValue = last(newValue);
-      if (pipe(type, equals('String'))(lastValue)) {
-        const lastDraggableItem = {
+      if (typeof lastValue === 'string') {
+        const lastDraggableItem: DraggableSelectEntry = {
           createOption: lastValue,
           id: `${lastValue}_${totalValues}`,
           name: lastValue
@@ -116,7 +114,7 @@ const DraggableAutocomplete = (
         newValue
       ) as DraggableSelectEntry;
 
-      const lastDraggableItem = {
+      const lastDraggableItem: DraggableSelectEntry = {
         id: `${lastItem.name}_${totalValues}`,
         name: lastItem.name
       };

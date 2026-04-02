@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   compose,
   flatten,
@@ -26,6 +25,8 @@ interface GraphDataResult {
 interface Props {
   data?: LineChartData;
   end?: string;
+  max?: number;
+  min?: number;
   start?: string;
 }
 

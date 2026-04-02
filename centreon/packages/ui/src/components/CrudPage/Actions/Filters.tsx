@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Tune } from '@mui/icons-material';
 
 import { isValidElement } from 'react';
@@ -20,7 +19,7 @@ const Filters: React.FC<Props> = ({ label, filters }: Props): JSX.Element => {
       title={label}
       tooltipClassName={classes.tooltipFilters}
     >
-      {isValidElement(filters) ? (() => filters as JSX.Element) : <div />}
+      {isValidElement(filters) ? () => filters : () => <div />}
     </PopoverMenu>
   );
 };

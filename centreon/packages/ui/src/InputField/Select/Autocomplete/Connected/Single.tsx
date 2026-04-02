@@ -1,9 +1,9 @@
-// @ts-nocheck
 import AutocompleteField from '..';
+import type { ReactElement } from 'react';
 import ConnectedAutocompleteField from '.';
 
 const SingleConnectedAutocompleteField = ConnectedAutocompleteField(
-  AutocompleteField,
+  AutocompleteField as unknown as (props: unknown) => ReactElement,
   false
 );
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ArrowBackIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import { CircularProgress, Link, Typography } from '@mui/material';
@@ -66,7 +65,7 @@ const Pagination = ({
     }
   });
 
-  const pagesCount = Math.ceil(data?.meta.total / limit);
+  const pagesCount = Math.ceil((data?.meta?.total ?? 0) / limit);
   const arePaginationComponentsDisplayed = !equals(pagesCount, 1);
 
   const hasNoElements = useMemo(

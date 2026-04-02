@@ -8,9 +8,11 @@ import type { GetYAnchorPoint } from './models';
 import useTickGraph from './useTickGraph';
 
 interface Props {
+  areaColor?: string;
   lineColor: string;
   metric_id: number;
   timeSeries: Array<TimeValue>;
+  transparency?: number;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
   hasSecondUnit?: boolean;

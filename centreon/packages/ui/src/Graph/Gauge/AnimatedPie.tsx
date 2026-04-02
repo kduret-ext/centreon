@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import { animated, to, useTransition } from '@react-spring/web';
@@ -28,6 +27,7 @@ type AnimatedPieProps<Datum> = ProvidedProps<Datum> & {
   getColor: (d: PieArcDatum<Datum>) => string;
   getKey: (d: PieArcDatum<Datum>) => string;
   hideTooltip?: () => void;
+  metric?: unknown;
   showTooltip?: (args) => void;
   thresholds: Thresholds;
 };
@@ -67,13 +67,13 @@ const AnimatedPie = <Datum,>({
             startAngle
           })
         )}
-        data-testid={`${arc.data?.value || arc.data}-arc`}
+        data-testid={`${(arc.data as any)?.value || arc.data}-arc`}
         display={
-          includes('transparent', arc.data?.name || '') ? 'none' : 'inline'
+          includes('transparent', (arc.data as any)?.name || '') ? 'none' : 'inline'
         }
         fill={getColor(arc)}
         onMouseEnter={(event) => {
-          const thresholdType = arc.data?.name as string;
+          const thresholdType = (arc.data as any)?.name as string;
 
           if (equals(thresholdType, 'success')) {
             return;

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography, useTheme } from '@mui/material';
 
 import {
@@ -133,7 +132,7 @@ const Timeline = ({
         stroke={theme.palette.text.primary}
         tickFormat={(value) =>
           format({
-            date: new Date(value),
+            date: new Date(value as number),
             formatString: getXAxisTickFormat({
               end: endDate,
               start: startDate

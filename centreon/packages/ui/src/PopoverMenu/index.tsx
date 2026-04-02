@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   ClickAwayListener,
   Paper,
@@ -109,15 +108,12 @@ const PopoverMenu = ({
           <Popper
             anchorEl={anchorEl}
             className={classes.popover}
-            nonce={undefined}
-            onResize={(): undefined => undefined}
-            onResizeCapture={(): undefined => undefined}
             open
             placement={popperPlacement}
             {...popperProps}
           >
             <Paper className={tooltipClassName}>
-              {equals(type(children), 'Function')
+              {typeof children === 'function'
                 ? children({ close })
                 : children}
             </Paper>

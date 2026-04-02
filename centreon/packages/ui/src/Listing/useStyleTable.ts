@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Theme } from '@mui/material';
 
 import { ListingVariant } from '@centreon/ui-context';
@@ -35,7 +34,7 @@ export const getTextStyleByViewMode = ({
   pick(
     ['color', 'fontSize', 'lineHeight'],
     theme.typography[isCompactMode(listingVariant) ? 'body2' : 'body1']
-  );
+  ) as CSSObject;
 
 const useStyleTable = ({ listingVariant }: TableStyle): TableStyleState => {
   const dataStyle = useAtomValue(tableStyleAtom);

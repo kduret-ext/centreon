@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { useAtom } from 'jotai';
@@ -47,14 +46,14 @@ const DeleteModal = <TData extends { id: number; name: string }>({
     <Modal onClose={close} open={isOpen} size={modalSize}>
       <Modal.Header>
         {isAFunction(labels.title)
-          ? (labels.title as (item: ItemToDelete) => string | ReactElement)(itemToDeleteRef.current as TData) as ReactElement
-          : labels.title}
+          ? (labels.title as (item: ItemToDelete) => string | ReactElement)(itemToDeleteRef.current as TData)
+          : (labels.title as string | ReactElement)}
       </Modal.Header>
       <Modal.Body>
         <Typography>
-          {(isAFunction(labels.description)
+          {isAFunction(labels.description)
             ? (labels.description as (item: ItemToDelete) => string | ReactElement)(itemToDeleteRef.current as TData)
-            : labels.description) as ReactElement}
+            : (labels.description as string | ReactElement)}
         </Typography>
       </Modal.Body>
       <Box

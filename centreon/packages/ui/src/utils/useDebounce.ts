@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useCallback, useEffect, useRef } from 'react';
 
 interface Props {
@@ -13,7 +12,7 @@ export const useDebounce = ({
   memoProps = []
 }: Props): ((...args) => void) => {
   const timeoutRef = useRef<number | null>(null);
-  const ref = useRef();
+  const ref = useRef<((...args: unknown[]) => void) | undefined>(undefined);
 
   useEffect(() => {
     ref.current = functionToDebounce;

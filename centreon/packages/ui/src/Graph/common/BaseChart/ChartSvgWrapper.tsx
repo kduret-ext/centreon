@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Group } from '@visx/visx';
 import { equals } from 'ramda';
 import type { MutableRefObject, ReactElement } from 'react';
@@ -15,11 +14,11 @@ interface Props {
   allUnits: Array<string>;
   axis?: ChartAxis;
   base?: number;
-  children: JSX.Element;
+  children: JSX.Element | Array<JSX.Element | false | null | undefined>;
   displayedLines: Array<Line>;
   graphHeight: number;
   graphWidth: number;
-  gridLinesType?: string;
+  gridLinesType?: 'horizontal' | 'vertical' | 'all';
   leftScale;
   orientation?: 'horizontal' | 'vertical';
   rightScale;

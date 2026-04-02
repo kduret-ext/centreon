@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Box } from '@mui/material';
 
 import { scaleLinear } from '@visx/scale';
@@ -95,7 +94,7 @@ const ResponsiveHeatMap = <TData,>({
               arrow: cx(classes.heatMapTooltipArrow, arrowClassName),
               tooltip: classes.heatMapTooltip
             }}
-            data-testid={`tooltip-${data?.id}`}
+            data-testid={`tooltip-${(data as any)?.id}`}
             followCursor={false}
             hasCaret
             label={

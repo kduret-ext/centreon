@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { alpha, Box, useTheme } from '@mui/material';
 
 import { animated, useSpring } from '@react-spring/web';
@@ -6,6 +5,7 @@ import { scaleLinear } from '@visx/scale';
 import { Bar } from '@visx/shape';
 import { Group, Tooltip } from '@visx/visx';
 import { clamp, equals, flatten, head, pluck } from 'ramda';
+import type { ReactNode } from 'react';
 import { useMemo, useRef } from 'react';
 
 import { Tooltip as MuiTooltip } from '../../components/Tooltip';
@@ -42,7 +42,7 @@ const ResponsiveSingleBar = ({
   const { classes } = useTooltipStyles();
   const theme = useTheme();
 
-  const metric = getMetricWithLatestData(data) as Metric;
+  const metric = getMetricWithLatestData(data!) as Metric;
   const latestMetricData = head(metric.data) as number;
   const thresholdValues = thresholds.enabled
     ? flatten([
@@ -167,9 +167,9 @@ const ResponsiveSingleBar = ({
           classes={{
             tooltip: classes.tooltip
           }}
-          label={tooltipData}
+          label={tooltipData as ReactNode}
           open={tooltipOpen}
-          placement="top"
+          position="top"
         >
           <svg height={height} ref={svgRef} width={width}>
             <title>single bar</title>

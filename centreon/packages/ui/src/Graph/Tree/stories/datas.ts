@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Node } from '../models';
 
 export interface SimpleData {
@@ -164,6 +163,7 @@ export const complexData: Node<ComplexData> = {
               ],
               data: {
                 count: 1,
+                id: 0,
                 name: 'ok',
                 status: 'ok'
               }
@@ -278,6 +278,7 @@ export const moreComplexData: Node<ComplexData> = {
               ],
               data: {
                 count: 1,
+                id: 0,
                 name: 'ok',
                 status: 'ok'
               }

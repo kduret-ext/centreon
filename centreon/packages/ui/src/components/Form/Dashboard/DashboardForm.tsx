@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { equals } from 'ramda';
 import { type ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { number, object, string } from 'yup';
+import { type Schema, number, object, string } from 'yup';
 
 import { Form, type FormProps } from '../../../Form';
 import { InputType } from '../../../Form/Inputs/models';
@@ -84,7 +83,7 @@ const DashboardForm = ({
         }
       ],
       submit: (values, bag) => onSubmit?.(values, bag),
-      validationSchema: object<any>({
+      validationSchema: object({
         description: string()
           .label(labels?.entity?.description || '')
           .max(
@@ -110,7 +109,7 @@ const DashboardForm = ({
           .min(3, ({ min, label }) => t(labelMustBeAtLeast, { label, min }))
           .max(50, ({ max, label }) => t(labelMustBeMost, { label, max }))
           .required(t(labelRequired) as string)
-      })
+      }) as unknown as Schema<DashboardResource>
     }),
     [resource, labels, onSubmit, showRefreshIntervalFields, t]
   );

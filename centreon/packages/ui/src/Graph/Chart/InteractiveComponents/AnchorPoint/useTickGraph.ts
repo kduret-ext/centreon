@@ -1,7 +1,6 @@
-// @ts-nocheck
 import type { ScaleLinear } from 'd3-scale';
 import { useAtomValue } from 'jotai';
-import { type MutableRefObject, useEffect, useState } from 'react';
+import { type MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import useAxisY from '../../../common/Axes/useAxisY';
 import { getTimeValue } from '../../../common/timeSeries';
@@ -47,8 +46,9 @@ const useTickGraph = ({
   const [tickAxisBottom, setTickAxisBottom] = useState<Date | null>(null);
   const [tickAxisLeft, setTickAxisLeft] = useState<string | null>(null);
   const [tickAxisRight, setTickAxisRight] = useState<string | null>(null);
+  const guidingLinesRef = useRef<SVGGElement | null>(null);
 
-  const { axisRight, axisLeft } = useAxisY({ data: { baseAxis, lines } });
+  const { axisRight, axisLeft } = useAxisY({ data: { baseAxis, lines }, isHorizontal: true });
 
   const mousePosition = useAtomValue(mousePositionAtom);
 
@@ -105,6 +105,7 @@ const useTickGraph = ({
   }, [mousePosition]);
 
   return {
+    guidingLinesRef,
     positionX,
     positionY,
     tickAxisBottom,

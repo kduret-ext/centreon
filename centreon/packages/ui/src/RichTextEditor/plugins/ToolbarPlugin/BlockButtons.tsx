@@ -1,4 +1,3 @@
-// @ts-nocheck
 import TextSizeIcon from '@mui/icons-material/TextFields';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -82,17 +81,20 @@ const BlockButtons = ({ disabled }: Props): JSX.Element => {
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
-    const anchorNode = selection?.anchor.getNode();
-    const element = equals(anchorNode?.getKey(), 'root')
+    if (!$isRangeSelection(selection)) {
+      return;
+    }
+    const anchorNode = selection.anchor.getNode();
+    const element = equals(anchorNode.getKey(), 'root')
       ? anchorNode
       : $findMatchingParent(anchorNode, (e) => {
           const parent = e.getParent();
 
           return parent !== null && $isRootOrShadowRoot(parent);
-        }) || anchorNode?.getTopLevelElementOrThrow();
+        }) || anchorNode.getTopLevelElementOrThrow();
 
     const elementKey = element?.getKey();
-    const elementDOM = editor.getElementByKey(elementKey);
+    const elementDOM = elementKey ? editor.getElementByKey(elementKey) : null;
 
     if (isNil(elementDOM)) {
       return;

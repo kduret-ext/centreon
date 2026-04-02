@@ -1,14 +1,14 @@
-// @ts-nocheck
 import { type ForwardedRef, forwardRef } from 'react';
 
 interface Props extends Record<string, unknown> {
-  Content: (props) => JSX.Element;
+  Content: (props: Record<string, unknown>) => JSX.Element;
   isInDragOverlay?: boolean;
 }
 
-const Item = forwardRef(
-  ({ Content, ...props }: Props, ref: ForwardedRef<HTMLDivElement>) => {
-    return <Content {...props} itemRef={ref} />;
+const Item = forwardRef<HTMLDivElement, Props>(
+  ({ Content, ...props }, ref) => {
+    const ContentComponent = Content as React.ComponentType<Record<string, unknown>>;
+    return <ContentComponent {...props} itemRef={ref} />;
   }
 );
 

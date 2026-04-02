@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { scaleBand, scaleOrdinal } from '@visx/scale';
 import { BarGroupHorizontal, BarGroup as VisxBarGroup } from '@visx/shape';
 import type { ScaleLinear } from 'd3-scale';
@@ -79,13 +78,13 @@ const BarGroup = ({
   });
   const sortedLineKeys = lineKeys.sort((lineKeyA: string, lineKeyB: string) => {
     if (lineKeyA.startsWith('stacked-') && !lineKeyB.startsWith('stacked-')) {
-      return true;
+      return -1;
     }
 
     const lineKeysA = lineKeyA.split('-');
     const lineKeysB = lineKeyB.split('-');
 
-    return lineKeysA[2] === '' && lineKeysB[2] !== '';
+    return lineKeysA[2] === '' && lineKeysB[2] !== '' ? -1 : 0;
   });
   const colors = useDeepMemo({
     deps: [lineKeys, lines],
@@ -100,7 +99,7 @@ const BarGroup = ({
 
   const colorScale = useMemo(
     () =>
-      scaleOrdinal<number, string>({
+      scaleOrdinal<string, string>({
         domain: lineKeys,
         range: colors
       }),
@@ -140,11 +139,11 @@ const BarGroup = ({
 
   return (
     <BarComponent<TimeValue>
-      color={colorScale}
+      color={colorScale as any}
       data={normalizedTimeSeries}
       height={size}
-      keys={sortedLineKeys}
-      {...barComponentBaseProps}
+      keys={sortedLineKeys as Array<keyof TimeValue>}
+      {...(barComponentBaseProps as any)}
     >
       {(barGroups) =>
         barGroups.map((barGroup, index) => {
@@ -196,7 +195,7 @@ export default memo(BarGroup, (prevProps, nextProps) => {
   ];
 
   return (
-    equals(pick(propsToMemoize, prevProps), pick(propsToMemoize, nextProps)) &&
+    equals(pick(propsToMemoize as readonly (keyof Props)[], prevProps), pick(propsToMemoize as readonly (keyof Props)[], nextProps)) &&
     equals(prevYScale, nextYScale) &&
     equals(prevXScale, nextXScale)
   );

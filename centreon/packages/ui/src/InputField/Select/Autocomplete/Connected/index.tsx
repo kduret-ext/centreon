@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CircularProgress, useTheme } from '@mui/material';
 
 import {
@@ -376,7 +375,7 @@ const ConnectedAutocompleteField = (
           allowUniqOption ? uniqBy(getRenderedOptionText, options) : options
         }
         renderOption={renderOptions}
-        total={data?.meta?.total || data?.totalElements || 1}
+        total={(data && 'meta' in data ? data.meta.total : undefined) || (data && 'totalElements' in data ? data.totalElements : undefined) || 1}
         {...props}
       />
     );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Divider from '@mui/material/Divider';
@@ -217,10 +216,7 @@ const MemoListingActionBar = ({
       listingVariant,
       themeMode,
       limit,
-      pick(
-        ['id', 'label', 'disabled', 'width', 'shortLabel', 'sortField'],
-        columns
-      ),
+      columns.map(pick(['id', 'label', 'disabled', 'width', 'shortLabel', 'sortField'])),
       columnConfiguration,
       customPaginationClassName,
       ...actionsBarMemoProps

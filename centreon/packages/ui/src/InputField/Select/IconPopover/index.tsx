@@ -1,4 +1,3 @@
-// @ts-nocheck
 import IconReset from '@mui/icons-material/RotateLeft';
 import {
   Button,
@@ -98,9 +97,6 @@ const IconPopoverMultiAutocomplete = ({
         </IconButton>
         <Popper
           anchorEl={anchorEl}
-          nonce={undefined}
-          onResize={(): undefined => undefined}
-          onResizeCapture={(): undefined => undefined}
           open={isOpen}
           placement={popperPlacement}
           style={{ zIndex: theme.zIndex.tooltip }}

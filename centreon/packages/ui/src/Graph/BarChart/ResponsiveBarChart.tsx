@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Skeleton } from '@mui/material';
 
 import { useAtom, useAtomValue } from 'jotai';
@@ -53,7 +52,7 @@ interface Props
   > {
   barStyle: BarStyle;
   graphData: Data;
-  graphRef: MutableRefObject<HTMLDivElement | null>;
+  graphRef: MutableRefObject<HTMLDivElement | null> | ((instance: HTMLDivElement | null) => void);
   height: number;
   limitLegend?: false | number;
   orientation: 'vertical' | 'horizontal' | 'auto';
@@ -102,7 +101,7 @@ const ResponsiveBarChart = ({
   const [tooltipData, setTooltipData] = useAtom(tooltipDataAtom);
   const isApplyingZoom = useAtomValue(applyingZoomAtomAtom);
 
-  const { isInViewport } = useIntersection({ element: graphRef?.current });
+  const { isInViewport } = useIntersection({ element: typeof graphRef === 'function' ? null : graphRef?.current });
 
   const displayedLines = useMemo(
     () => (linesGraph || []).filter(({ display }) => display),
@@ -243,18 +242,18 @@ const ResponsiveBarChart = ({
       isHorizontal={isHorizontal}
       legend={{
         displayLegend,
-        mode: legend?.mode,
-        placement: legend?.placement,
+        mode: legend?.mode as 'grid' | 'list',
+        placement: legend?.placement as 'bottom' | 'left' | 'right',
         renderExtraComponent: legend?.renderExtraComponent,
         secondaryClick: legend?.secondaryClick,
         showCalculations: legend?.showCalculations
       }}
-      legendRef={legendRef}
+      legendRef={legendRef as unknown as MutableRefObject<HTMLDivElement | null>}
       limitLegend={limitLegend}
       lines={linesGraph}
       setLines={setLinesGraph}
       title={title}
-      titleRef={titleRef}
+      titleRef={titleRef as unknown as MutableRefObject<HTMLDivElement | null>}
     >
       <Tooltip
         classes={{

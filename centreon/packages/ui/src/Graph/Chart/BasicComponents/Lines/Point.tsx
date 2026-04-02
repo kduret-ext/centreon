@@ -2,10 +2,13 @@ import { isNil } from 'ramda';
 
 interface Props {
   lineColor: string;
+  metric_id?: number;
   radius: number;
+  timeSeries?: unknown;
   timeTick: Date;
   xScale;
   yPoint: number | null;
+  yScale?: unknown;
 }
 
 const Point = ({

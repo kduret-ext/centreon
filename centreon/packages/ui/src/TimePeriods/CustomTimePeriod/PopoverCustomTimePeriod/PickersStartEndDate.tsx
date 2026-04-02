@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** biome-ignore-all lint/a11y/useAriaPropsSupportedByRole: need it */
 import { Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -11,6 +10,8 @@ import { useAtomValue } from 'jotai';
 import { equals } from 'ramda';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from 'tss-react/mui';
+
+import type { Dayjs } from 'dayjs';
 
 import { useLocale } from '../../../utils';
 import DateTimePickerInput from '../../DateTimePickerInput';
@@ -81,8 +82,8 @@ const PickerDateWithLabel = ({
         changeDate={changeDate}
         date={date}
         disabled={disabled}
-        maxDate={maxDate}
-        minDate={minDate}
+        maxDate={maxDate as (Date & Dayjs) | undefined}
+        minDate={minDate as (Date & Dayjs) | undefined}
         property={property}
       />
     </div>

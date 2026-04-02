@@ -1,4 +1,3 @@
-// @ts-nocheck
 import UnorderedListIcon from '@mui/icons-material/FormatListBulleted';
 import OrderedListIcon from '@mui/icons-material/FormatListNumbered';
 
@@ -15,7 +14,7 @@ import {
   $getNearestNodeOfType,
   mergeRegister
 } from '@lexical/utils';
-import { $getSelection, $isRootOrShadowRoot } from 'lexical';
+import { $getSelection, $isRangeSelection, $isRootOrShadowRoot } from 'lexical';
 import { equals, isNil } from 'ramda';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +46,7 @@ const ListButton = ({ disabled }: Props): JSX.Element => {
 
   const [editor] = useLexicalComposerContext();
 
-  const [elementList, setElementList] = useState(null);
+  const [elementList, setElementList] = useState<string | null>(null);
 
   const formatBulletList = (): void => {
     if (elementList !== 'bullet') {
@@ -80,17 +79,20 @@ const ListButton = ({ disabled }: Props): JSX.Element => {
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
-    const anchorNode = selection?.anchor.getNode();
-    const element = equals(anchorNode?.getKey(), 'root')
+    if (!$isRangeSelection(selection)) {
+      return;
+    }
+    const anchorNode = selection.anchor.getNode();
+    const element = equals(anchorNode.getKey(), 'root')
       ? anchorNode
       : $findMatchingParent(anchorNode, (e) => {
           const parent = e.getParent();
 
           return parent !== null && $isRootOrShadowRoot(parent);
-        }) || anchorNode?.getTopLevelElementOrThrow();
+        }) || anchorNode.getTopLevelElementOrThrow();
 
     const elementKey = element?.getKey();
-    const elementDOM = editor.getElementByKey(elementKey);
+    const elementDOM = elementKey ? editor.getElementByKey(elementKey) : null;
 
     if (isNil(elementDOM)) {
       return;

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, IconButton, Link, Paper, Popper } from '@mui/material';
 
@@ -96,9 +95,9 @@ const FloatingLinkEditor = ({
 
     const matched = value.match(/https?:\/\//g);
 
-    if (gt(matched.length, 1)) {
+    if (matched && gt(matched.length, 1)) {
       setEditedUrl(
-        replace(matched.join(''), matched[dec(matched.length)], value)
+        value.replace(matched.join(''), matched[dec(matched.length)])
       );
 
       return;

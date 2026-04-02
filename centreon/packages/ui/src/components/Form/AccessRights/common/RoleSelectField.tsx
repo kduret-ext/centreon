@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { SelectChangeEvent } from '@mui/material';
 
 import SelectField, { type SelectEntry } from '../../../../InputField/Select';
@@ -31,6 +30,7 @@ const RoleSelectField = ({
       <SelectField
         dataTestId={testId}
         disabled={disabled}
+        formControlProps={{}}
         fullWidth
         label={label}
         onChange={change as any}

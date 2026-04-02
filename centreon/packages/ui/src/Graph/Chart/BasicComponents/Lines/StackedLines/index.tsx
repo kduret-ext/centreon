@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Shape } from '@visx/visx';
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
 import {
@@ -6,12 +5,9 @@ import {
   equals,
   isNil,
   map,
-  not,
   nth,
-  path,
   pipe,
-  prop,
-  type
+  prop
 } from 'ramda';
 import type { ReactElement } from 'react';
 
@@ -32,7 +28,7 @@ import Point from '../Point';
 
 interface Props {
   areaTransparency?: number;
-  curve: 'linear' | 'step' | 'natural';
+  curve?: 'linear' | 'step' | 'natural';
   dashLength?: number;
   dashOffset?: number;
   displayAnchor: boolean;
@@ -44,7 +40,7 @@ interface Props {
   timeSeries: Array<TimeValue>;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
-  lineStyle: LineStyle | Array<LineStyle>;
+  lineStyle?: LineStyle | Array<LineStyle & { metricId: number }>;
   hasSecondUnit?: boolean;
   maxLeftAxisCharacters: number;
 }
@@ -60,8 +56,8 @@ const StackLines = ({
   maxLeftAxisCharacters
 }: Props): ReactElement => {
   const curveType = getCurveFactory(
-    (equals(type(lineStyle), 'Array')
-      ? lineStyle?.[0].curve
+    (Array.isArray(lineStyle)
+      ? lineStyle[0]?.curve
       : lineStyle?.curve) || 'linear'
   );
   return (
@@ -69,14 +65,10 @@ const StackLines = ({
       curve={curveType}
       data={timeSeries}
       defined={(d): boolean => {
-        return pipe(
-          map(prop('metric_id')) as unknown as (
-            displayedLines
-          ) => Array<string>,
-          all((metric_id) => pipe(path(['data', metric_id]), isNil, not)(d))
-        )(lines);
+        const metricIds = lines.map((l) => l.metric_id);
+        return all((metric_id: number) => !isNil(d[metric_id]))(metricIds);
       }}
-      keys={map(prop('metric_id'), lines)}
+      keys={lines.map((l) => l.metric_id) as unknown as Array<string>}
       x={(d): number => xScale(getTime(d.data)) ?? 0}
       y0={(d): number => yScale(d[0]) ?? 0}
       y1={(d): number => yScale(d[1]) ?? 0}
@@ -86,15 +78,15 @@ const StackLines = ({
           const { areaColor, transparency, lineColor, highlight, metric_id } =
             nth(index, lines) as Line;
 
-          const style = getStyle({
+          const style = (lineStyle ? getStyle({
             metricId: metric_id,
             style: lineStyle
-          }) as LineStyle;
+          }) : undefined) as LineStyle ?? {} as LineStyle;
           const formattedLineWidth = style?.lineWidth ?? 2;
 
           const formattedTransparency = isNil(style?.areaTransparency)
             ? transparency || 80
-            : style.areaTransparency;
+            : style.areaTransparency!;
 
           const linePartStack = stack.map((stackValue, index) => {
             if (isNil(timeSeries[index][metric_id])) {
@@ -108,7 +100,7 @@ const StackLines = ({
             <g key={`stack-${prop('key', stack)}`}>
               {displayAnchor && (
                 <StackedAnchorPoint
-                  areaColor={style?.areaColor}
+                  areaColor={(style as any)?.areaColor}
                   hasSecondUnit={hasSecondUnit}
                   lineColor={lineColor}
                   maxLeftAxisCharacters={maxLeftAxisCharacters}
@@ -153,7 +145,7 @@ const StackLines = ({
               />
               <Shape.LinePath
                 curve={curveType}
-                data={linePartStack}
+                data={linePartStack as unknown as Array<{ 0: number; 1: number | null; data: TimeValue }>}
                 defined={(d) => {
                   return !isNil(d[1]);
                 }}
@@ -172,7 +164,7 @@ const StackLines = ({
                     : formattedLineWidth
                 }
                 x={(d) => xScale(getTime(d.data)) ?? 0}
-                y={(d) => yScale(d[1]) ?? 0}
+                y={(d) => yScale(d[1] ?? 0) ?? 0}
               />
             </g>
           );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 
 import { ColumnType } from '../../../';
@@ -48,6 +47,7 @@ const Listing = <TData extends { id: number; name: string }>({
       actions={<Actions filters={filters} labels={labels} />}
       columns={listingColumns}
       currentPage={page}
+      isActionBarVisible
       limit={limit}
       loading={isLoading}
       onLimitChange={setLimit}

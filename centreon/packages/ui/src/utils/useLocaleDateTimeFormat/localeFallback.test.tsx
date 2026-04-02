@@ -1,4 +1,3 @@
-// @ts-nocheck
 import dayjs from "dayjs";
 import { useEffect } from "react";
 import "dayjs/locale/en";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Stack } from '@mui/material';
 
 import { equals, gt, isNil, lte, reduce } from 'ramda';
@@ -85,7 +84,7 @@ const BaseChart = ({
   return (
     <>
       <div ref={titleRef}>
-        <Header header={header} ref={titleRef} title={title} />
+        <Header header={header} title={title} />
       </div>
       <div className={classes.container}>
         <Stack
@@ -113,7 +112,7 @@ const BaseChart = ({
                   placement="left"
                   renderExtraComponent={legend?.renderExtraComponent}
                   secondaryClick={legend?.secondaryClick}
-                  setLinesGraph={setLines}
+                  setLinesGraph={setLines as Dispatch<SetStateAction<Array<Line> | null>>}
                   shouldDisplayLegendInCompactMode={
                     shouldDisplayLegendInCompactMode
                   }
@@ -139,7 +138,7 @@ const BaseChart = ({
             placement="bottom"
             renderExtraComponent={legend.renderExtraComponent}
             secondaryClick={legend?.secondaryClick}
-            setLinesGraph={setLines}
+            setLinesGraph={setLines as Dispatch<SetStateAction<Array<Line> | null>>}
             shouldDisplayLegendInCompactMode={shouldDisplayLegendInCompactMode}
             showCalculations={legend?.showCalculations}
           />

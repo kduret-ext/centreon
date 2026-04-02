@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ClickAwayListener, Skeleton } from '@mui/material';
 
 import { useAtom } from 'jotai';
@@ -197,7 +196,7 @@ const Chart = ({
         dataLines: linesGraph,
         dataTimeSeries: timeSeries,
         isCenteredZero: axis?.isCenteredZero,
-        isFilled: lineStyle?.showArea,
+        isFilled: Array.isArray(lineStyle) ? undefined : lineStyle?.showArea,
         max,
         min,
         scale: axis?.scale,
@@ -216,7 +215,7 @@ const Chart = ({
       axis?.scale,
       axis?.scaleLogarithmicBase,
       boundariesUnit,
-      lineStyle?.showArea,
+      Array.isArray(lineStyle) ? undefined : lineStyle?.showArea,
       max,
       min,
       thresholdUnit
@@ -293,18 +292,18 @@ const Chart = ({
             ...legend,
             displayLegend,
             legendHeight: legend?.height,
-            mode: legend?.mode,
-            placement: legend?.placement,
+            mode: legend?.mode as 'grid' | 'list',
+            placement: legend?.placement as 'bottom' | 'left' | 'right',
             renderExtraComponent: legend?.renderExtraComponent,
             secondaryClick: legend?.secondaryClick,
             showCalculations: legend?.showCalculations
           }}
-          legendRef={legendRef}
+          legendRef={legendRef as unknown as MutableRefObject<HTMLDivElement | null>}
           limitLegend={limitLegend}
           lines={linesGraph}
           setLines={setLinesGraph}
           title={title}
-          titleRef={titleRef}
+          titleRef={titleRef as unknown as MutableRefObject<HTMLDivElement | null>}
         >
           <GraphValueTooltip
             baseAxis={baseAxis}
@@ -331,7 +330,7 @@ const Chart = ({
               >
                 {!isEmpty(linesDisplayedAsBar) && (
                   <BarGroup
-                    barStyle={barStyle}
+                    barStyle={Array.isArray(barStyle) ? { opacity: 1, radius: 0.2 } : barStyle}
                     isTooltipHidden={false}
                     lines={linesDisplayedAsBar}
                     orientation="horizontal"
@@ -350,7 +349,7 @@ const Chart = ({
                     graphSvgRef={graphSvgRef}
                     hasSecondUnit={hasSecondUnit}
                     height={graphHeight - marginTop}
-                    lineStyle={lineStyle}
+                    lineStyle={lineStyle ?? {}}
                     maxLeftAxisCharacters={maxLeftAxisCharacters}
                     scale={axis?.scale}
                     scaleLogarithmicBase={axis?.scaleLogarithmicBase}
@@ -362,14 +361,18 @@ const Chart = ({
                     {...shapeLines}
                   />
                 )}
-                {additionalLines?.map((additionalLine) => (
-                  <AdditionalLine
-                    key={additionalLine.yValue}
-                    {...additionalLine}
-                    graphWidth={graphWidth}
-                    yScale={yScalesPerUnit[additionalLine.unit]}
-                  />
-                ))}
+                {additionalLines ? (
+                  <>
+                    {additionalLines.map((additionalLine) => (
+                      <AdditionalLine
+                        key={additionalLine.yValue}
+                        {...additionalLine}
+                        graphWidth={graphWidth}
+                        yScale={yScalesPerUnit[additionalLine.unit]}
+                      />
+                    ))}
+                  </>
+                ) : null}
                 <InteractionWithGraph
                   annotationData={{ ...annotationEvent }}
                   commonData={{

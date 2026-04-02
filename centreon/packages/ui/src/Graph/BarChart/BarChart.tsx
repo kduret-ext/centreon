@@ -1,4 +1,3 @@
-// @ts-nocheck
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import 'dayjs/locale/es';

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Group } from '@visx/group';
 import type { BarGroup } from '@visx/shape/lib/types';
 import type { ScaleLinear } from 'd3-scale';
@@ -21,7 +20,7 @@ interface Props {
   notStackedLines: Array<Line>;
   notStackedTimeSeries: Array<TimeValue>;
   isHorizontal: boolean;
-  barGroup: BarGroup<'id'>;
+  barGroup: BarGroup<string>;
   barIndex: number;
 }
 
@@ -55,7 +54,7 @@ const MemoizedGroup = ({
   }
 
   return (
-    <Group left={barGroup.x0} top={barGroup.y0}>
+    <Group left={barGroup.x0} top={(barGroup as unknown as { y0: number }).y0}>
       {barGroup.bars.map((bar) => {
         const isStackedBar = bar.key.startsWith('stacked-');
         const linesBar = isStackedBar
@@ -75,7 +74,7 @@ const MemoizedGroup = ({
           : (linesBar as Line).unit;
         const yScale =
           unit === '' && yScalesPerUnit[unit] === undefined
-            ? yScalesPerUnit[undefined]
+            ? Object.values(yScalesPerUnit)[0]
             : yScalesPerUnit[unit];
 
         return isStackedBar ? (
@@ -90,7 +89,7 @@ const MemoizedGroup = ({
             key={`bar-${barGroup.index}-${bar.width}-${bar.y}-${bar.height}-${bar.x}`}
             lines={linesBar as Array<Line>}
             neutralValue={neutralValue}
-            timeSeries={timeSeriesBar}
+            timeSeries={timeSeriesBar as Array<TimeValue>}
             yScale={yScale}
           />
         ) : (
@@ -104,7 +103,7 @@ const MemoizedGroup = ({
             key={`bar-${barGroup.index}-${bar.width}-${bar.y}-${bar.height}-${bar.x}`}
             lines={[linesBar as Line]}
             neutralValue={neutralValue}
-            timeSeries={timeSeriesBar}
+            timeSeries={timeSeriesBar as Array<TimeValue>}
             yScale={yScale}
           />
         );

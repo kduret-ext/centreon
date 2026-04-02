@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   alpha,
@@ -12,7 +11,7 @@ import {
 import type { ListingVariant } from '@centreon/ui-context';
 
 import { useAtom } from 'jotai';
-import { append, equals, includes, isNil, reject } from 'ramda';
+import { equals, includes, isNil, reject } from 'ramda';
 import type { ElementType } from 'react';
 import type { CSSObject } from 'tss-react';
 
@@ -99,7 +98,7 @@ const handleSubItems = ({
     return reject(equals(id), currentSubItemsPivots);
   }
 
-  return append(id, currentSubItemsPivots);
+  return [...currentSubItemsPivots, id];
 };
 
 const Cell = ({
@@ -162,7 +161,7 @@ const Cell = ({
           theme
         }),
         ...style
-      }}
+      } as React.CSSProperties}
       {...props}
     >
       {displaySubItemsCaret && hasSubItems && (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import { equals } from 'ramda';
@@ -29,8 +28,8 @@ const GraphValueTooltip = ({
         classes={{
           tooltip: classes.tooltip
         }}
-        placement="top-start"
-        title={<Typography>{thresholdTooltip?.thresholdLabel}</Typography>}
+        label={<Typography>{thresholdTooltip?.thresholdLabel}</Typography>}
+        position="top-start"
       >
         {children}
       </MuiTooltip>
@@ -42,16 +41,16 @@ const GraphValueTooltip = ({
       classes={{
         tooltip: cx(classes.tooltip, classes.tooltipDisablePadding)
       }}
-      placement="top-start"
-      title={
+      label={
         equals('hidden', tooltip?.mode) ? null : (
           <GraphValueTooltipContent
             base={baseAxis}
             isSingleMode={equals('single', tooltip?.mode)}
-            sortOrder={tooltip?.sortOrder}
+            sortOrder={tooltip?.sortOrder ?? 'name'}
           />
         )
       }
+      position="top-start"
     >
       {children}
     </MuiTooltip>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@mui/material';
 
 import { $generateHtmlFromNodes } from '@lexical/html';
@@ -217,7 +216,6 @@ const RichTextEditor = ({
                 resetEditorToInitialStateCondition={
                   resetEditorToInitialStateCondition
                 }
-                setHtmlString={setHtmlString}
               />
             }
             ErrorBoundary={LexicalErrorBoundary}

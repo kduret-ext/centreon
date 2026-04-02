@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Box } from '@mui/material';
 
 import { type FormikValues, useFormikContext } from 'formik';
@@ -45,6 +44,7 @@ const Checkbox = ({
         dataTestId={dataTestId || ''}
         disabled={disabled}
         Icon={value?.Icon}
+        id={fieldName}
         label={label}
         labelPlacement={checkbox?.labelPlacement || 'end'}
         onChange={handleChange}

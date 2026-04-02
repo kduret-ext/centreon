@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: need it */
 /** biome-ignore-all lint/a11y/useAriaPropsSupportedByRole: nedd it */
 import { Typography } from '@mui/material';
@@ -146,11 +145,11 @@ const ContentEditable = ({
 
   const isTextEmpty =
     isEmpty(root) &&
-    !editor.getEditorState().toJSON().root.children?.[0]?.children?.length;
+    !(editor.getEditorState().toJSON().root as { children?: Array<{ children?: unknown[] }> }).children?.[0]?.children?.length;
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
     setFocused(false);
-    onBlur?.(event);
+    onBlur?.(event.target.textContent || '');
   };
 
   const isEditable = editor.isEditable();

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { always, clamp, cond, isEmpty, T } from 'ramda';
 import { type ChangeEvent, useState } from 'react';
 
@@ -44,9 +43,9 @@ const NumberField = ({
         T,
         always(
           clamp(
-            textFieldSlotsAndSlotProps?.slotProps?.htmlInput?.min ||
+            (textFieldSlotsAndSlotProps?.slotProps?.htmlInput as Record<string, number> | undefined)?.min ||
               Number.NEGATIVE_INFINITY,
-            textFieldSlotsAndSlotProps?.slotProps?.htmlInput?.max ||
+            (textFieldSlotsAndSlotProps?.slotProps?.htmlInput as Record<string, number> | undefined)?.max ||
               Number.POSITIVE_INFINITY,
             number
           )

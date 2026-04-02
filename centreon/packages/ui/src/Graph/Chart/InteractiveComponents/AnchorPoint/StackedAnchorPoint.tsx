@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
 import { isNil, map, pipe } from 'ramda';
 
@@ -9,9 +8,11 @@ import type { StackValue } from './models';
 import useTickGraph from './useTickGraph';
 
 interface Props {
+  areaColor?: string;
   lineColor: string;
   stackValues: Array<StackValue>;
   timeSeries: Array<TimeValue>;
+  transparency?: number;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
   hasSecondUnit?: boolean;
@@ -39,9 +40,9 @@ export const getYAnchorPoint = ({
 }: GetYAnchorPoint): number | null => {
   const index = bisectDate(getStackedDates(stackValues), timeTick);
   const timeValue = stackValues[index];
-  const { key } = stackValues;
+  const key = (stackValues as unknown as { key: string }).key;
 
-  if (isNil(timeValue.data[key])) {
+  if (isNil((timeValue as unknown as { data: Record<string, unknown> })?.data?.[key as string])) {
     return null;
   }
 

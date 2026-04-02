@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { alpha } from '@mui/material';
 
 import type { ScaleTime } from 'd3-scale';
@@ -18,7 +17,6 @@ import {
   lte,
   not,
   or,
-  type Pred,
   pipe,
   T
 } from 'ramda';
@@ -57,7 +55,7 @@ export const annotationHoveredAtom = atom<AnnotationAtom | undefined>(
   undefined
 );
 
-export const getIsBetween = ({ start, end }: GetIsBetweenProps): Pred => {
+export const getIsBetween = ({ start, end }: GetIsBetweenProps): (val: number) => boolean => {
   const gteX = gte(__, start);
   const lteX = lte(__, end);
 
@@ -124,54 +122,54 @@ const getIsNotHoveredOrNil = ({
 export const getStrokeWidthDerivedAtom = atom(
   (get) =>
     (annotation: AnnotationAtom | undefined): number =>
-      cond<AnnotationAtom | undefined, number>([
+      (cond([
         [
-          (hoveredAnnotation): boolean =>
+          (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
             getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
           always(1)
         ],
         [equals(annotation), always(3)],
         [T, always(1)]
-      ])(get(annotationHoveredAtom)) as number
+      ]) as (val: AnnotationAtom | undefined) => number)(get(annotationHoveredAtom))
 );
 
 export const getStrokeOpacityDerivedAtom = atom(
   (get) =>
     (annotation: AnnotationAtom | undefined): number =>
-      cond<AnnotationAtom | undefined, number>([
+      (cond([
         [
-          (hoveredAnnotation): boolean =>
+          (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
             getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
           always(0.5)
         ],
         [equals(annotation), always(0.7)],
         [T, always(0.2)]
-      ])(get(annotationHoveredAtom)) as number
+      ]) as (val: AnnotationAtom | undefined) => number)(get(annotationHoveredAtom))
 );
 
 export const getFillColorDerivedAtom = atom(
   (get) =>
     ({ color, annotation }: AnnotationColor): string =>
-      cond<AnnotationAtom | undefined, string>([
+      (cond([
         [
-          (hoveredAnnotation): boolean =>
+          (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
             getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
           always(alpha(color, 0.3))
         ],
         [
-          equals<AnnotationAtom | undefined>(annotation),
+          equals(annotation) as (val: AnnotationAtom | undefined) => boolean,
           always(alpha(color, 0.5))
         ],
         [T, always(alpha(color, 0.1))]
-      ])(get(annotationHoveredAtom)) as string
+      ]) as (val: AnnotationAtom | undefined) => string)(get(annotationHoveredAtom))
 );
 
 export const getIconColorDerivedAtom = atom(
   (get) =>
     ({ color, annotation }: AnnotationColor): string =>
-      cond<AnnotationAtom | undefined, string>([
+      (cond as any)([
         [
-          (hoveredAnnotation): boolean =>
+          (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
             getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
           always(color)
         ],

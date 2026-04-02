@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Scale } from '@visx/visx';
 import { bisector } from 'd3-array';
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
@@ -179,7 +178,7 @@ const getTime = (timeValue: TimeValue): number =>
   new Date(timeValue.timeTick).valueOf();
 
 const getMetrics = (timeValue: TimeValue): Array<string> =>
-  pipe(keys, reject(equals('timeTick')))(timeValue) as any;
+  (pipe as any)(keys, reject(equals('timeTick')))(timeValue);
 
 const getValueForMetric =
   (timeValue: TimeValue) =>
@@ -270,7 +269,7 @@ const getStackedMetricValues = ({
       timeSeries
     );
 
-  const metricsValues = pipe(
+  const metricsValues: Array<Array<number>> = pipe(
     map(prop('metric_id') as any) as any,
     map(getTimeSeriesValuesForMetric) as any
   )(lines as Array<Line>) as any;
@@ -279,7 +278,7 @@ const getStackedMetricValues = ({
     return [];
   }
 
-  return metricsValues[0].map((_, index): number =>
+  return metricsValues[0].map((_: number, index: number): number =>
     reduce(
       (acc: number, metricValue: Array<number>) => add(metricValue[index], acc),
       0,
@@ -855,10 +854,10 @@ export const getStackedLinesTimeSeriesPerStackAndUnit = ({
         }
       };
     },
-    {}
+    {} as Record<string, { lines: Array<Line>; timeSeries: Array<TimeValue> }>
   );
   const affectedLinesPerStackKey = flatten(
-    pluck('lines', Object.values(stackedLinesTimeSeriesPerStackKey)) as any
+    Object.values(stackedLinesTimeSeriesPerStackKey).map((v) => v.lines)
   );
   const stackedLinesTimeSeriesPerUnit = stackedKeysWithOnlyUnit.reduce(
     (acc, stackedKey: string) => {

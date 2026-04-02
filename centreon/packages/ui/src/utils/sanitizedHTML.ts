@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ReactHtmlParser from 'html-react-parser';
 import sanitizeHtml, { type IOptions } from 'sanitize-html';
 
@@ -13,7 +12,7 @@ const sanitizedHTML = ({
 }: UseSanitizedHTMLProps): JSX.Element => {
   const sanitizedContent = sanitizeHtml(initialContent, sanitizeOptions);
 
-  return ReactHtmlParser(sanitizedContent);
+  return ReactHtmlParser(sanitizedContent) as JSX.Element;
 };
 
 export { sanitizedHTML };

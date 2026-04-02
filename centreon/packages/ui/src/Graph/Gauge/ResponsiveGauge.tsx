@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { Box, useTheme } from '@mui/material';
 
 import { Group } from '@visx/group';
 import { Tooltip } from '@visx/visx';
 import { flatten, head, pluck } from 'ramda';
+import type { ReactNode } from 'react';
 import { useRef } from 'react';
 
 import { Tooltip as MuiTooltip } from '../../components/Tooltip';
@@ -64,7 +64,7 @@ const ResponsiveGauge = ({
 
   const pieColor = getColorFromDataAndTresholds({
     baseColor,
-    data: metric.data[0],
+    data: metric.data[0] ?? 0,
     theme,
     thresholds
   });
@@ -89,9 +89,9 @@ const ResponsiveGauge = ({
         classes={{
           tooltip: classes.tooltip
         }}
-        label={tooltipData}
+        label={tooltipData as ReactNode}
         open={thresholds.enabled && tooltipOpen}
-        placement="top"
+        position="top"
       >
         <svg height={height} ref={svgRef} width={width}>
           <title>gauge</title>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTheme } from '@mui/material';
 
 import {
@@ -186,7 +185,7 @@ const SortableItems = <T extends { [propertyToFilterItemsOn]: string }>({
     >
       <SortableContext items={sortableItemsIds} strategy={sortingStrategy}>
         <RootComponent>
-          {sortableItemsIds.map((sortableItemId, index) => {
+          <>{sortableItemsIds.map((sortableItemId, index) => {
             const item = getItemById(sortableItemId) as
               | Record<string, unknown>
               | undefined;
@@ -209,7 +208,7 @@ const SortableItems = <T extends { [propertyToFilterItemsOn]: string }>({
                 />
               )
             );
-          })}
+          })}</>
         </RootComponent>
       </SortableContext>
       <DragOverlay style={{ zIndex: theme.zIndex.tooltip }}>

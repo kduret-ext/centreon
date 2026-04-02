@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTheme } from '@mui/material';
 
 import { scaleOrdinal } from '@visx/scale';

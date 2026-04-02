@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTheme } from '@mui/material';
 
 import type { HierarchyPointLink } from '@visx/hierarchy/lib/types';
@@ -36,7 +35,7 @@ const Links = <TData extends BaseProp>({
       .descendants()
       .map((ancestor) => ancestor.data.data.id);
 
-    const LinkComponent = getLinkComponent(treeLink?.type);
+    const LinkComponent = getLinkComponent(treeLink?.type ?? 'curve') as typeof LinkHorizontal;
 
     const key = `${link.source.data.data.id}-${link.source.data.data.name}-${ancestorIds}_${link.target.data.data.id}-${link.target.data.data.name}-${descendantIds}-${idx}`;
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { Props as SingleAutocompleteFieldProps } from './InputField/Select/Autocomplete';
 
 export { default as IconButton } from './Button/Icon';
@@ -89,7 +88,7 @@ export type { Props as MultiAutocompleteFieldProps } from './InputField/Select/A
 export { default as MultiAutocompleteField } from './InputField/Select/Autocomplete/Multi';
 export { default as PopoverMultiAutocompleteField } from './InputField/Select/Autocomplete/Multi/Popover';
 export { default as IconPopoverMultiSelectField } from './InputField/Select/IconPopover';
-export type { Props as TextFieldProps } from './InputField/Text';
+export type { TextProps as TextFieldProps } from './InputField/Text';
 export { default as TextField } from './InputField/Text';
 export { default as LicenseMessage } from './LicenseMessage';
 export type { Props as ListingProps } from './Listing';

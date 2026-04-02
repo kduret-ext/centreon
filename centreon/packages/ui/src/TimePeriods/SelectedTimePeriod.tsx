@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button, ButtonGroup, Tooltip, useTheme } from '@mui/material';
 
 import { useAtomValue, useSetAtom } from 'jotai';
@@ -86,7 +85,7 @@ const SelectedTimePeriod = ({
               }
             >
               {
-                cond<number, string>([
+                cond<[number], string>([
                   [lte(theme.breakpoints.values.md), always(largeName)],
                   [T, always(name)]
                 ])(width) as string

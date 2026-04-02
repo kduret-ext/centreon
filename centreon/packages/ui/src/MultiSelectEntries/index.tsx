@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** biome-ignore-all lint/a11y/noStaticElementInteractions: need it */
 import IconCreate from '@mui/icons-material/Create';
 import { Box, Chip, FormHelperText, Grid, Typography } from '@mui/material';
@@ -62,7 +61,7 @@ const EntryChip = ({
   const { classes } = useStyles();
 
   return (
-    <Grid item size={gridWidth}>
+    <Grid size={gridWidth}>
       <Chip
         className={classes.chip}
         label={<div className={classes.labelChip}>{label}</div>}

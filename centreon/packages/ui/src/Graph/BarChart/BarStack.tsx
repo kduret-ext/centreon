@@ -1,8 +1,8 @@
-// @ts-nocheck
 import { scaleBand } from '@visx/scale';
 import { dec, equals, gt, pick } from 'ramda';
 import { memo, type ReactElement } from 'react';
 
+import type { TimeValue } from '../common/timeSeries/models';
 import Bar from './Bar';
 import type { BarStyle } from './models';
 import { type UseBarStackProps, useBarStack } from './useBarStack';
@@ -57,7 +57,7 @@ const BarStack = ({
     <BarStackComponent
       color={colorScale}
       data={[timeSeries[barIndex]]}
-      keys={lineKeys}
+      keys={lineKeys as Array<keyof TimeValue>}
       {...commonBarStackProps}
     >
       {(barStacks) => {
@@ -132,6 +132,6 @@ export default memo(BarStack, (prevProps, nextProps) => {
       [...prevYScaleDomain, ...prevYScaleRange],
       [...nextYScaleDomain, ...nextYScaleRange]
     ) &&
-    equals(pick(propsToMemoize, prevProps), pick(propsToMemoize, nextProps))
+    equals(pick(propsToMemoize as readonly (keyof Props)[], prevProps), pick(propsToMemoize as readonly (keyof Props)[], nextProps))
   );
 });

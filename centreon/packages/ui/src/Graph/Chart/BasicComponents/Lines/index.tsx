@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { ScaleLinear } from 'd3-scale';
 import { isNil } from 'ramda';
 import type { MutableRefObject } from 'react';
@@ -39,7 +38,7 @@ interface Props extends GlobalAreaLines {
   width: number;
   xScale: ScaleLinear<number, number>;
   yScalesPerUnit: Record<string, ScaleLinear<number, number>>;
-  lineStyle: LineStyle | Array<LineStyle>;
+  lineStyle?: LineStyle | Array<LineStyle & { metricId: number }>;
   hasSecondUnit?: boolean;
   maxLeftAxisCharacters: number;
   firstUnit?: string;
@@ -95,8 +94,8 @@ const Lines = ({
     maxLeftAxisCharacters,
     xScale
   };
-  const leftScale = yScalesPerUnit[axis?.axisYLeft?.unit ?? firstUnit];
-  const rightScale = yScalesPerUnit[axis?.axisYRight?.unit ?? secondUnit];
+  const leftScale = yScalesPerUnit[axis?.axisYLeft?.unit ?? firstUnit ?? ''] as ScaleLinear<number, number> | undefined;
+  const rightScale = yScalesPerUnit[axis?.axisYRight?.unit ?? secondUnit ?? ''] as ScaleLinear<number, number> | undefined;
   const hasUnitDisplayed =
     Boolean(firstUnit || secondUnit) ||
     Boolean(
@@ -129,7 +128,7 @@ const Lines = ({
               const [, unit] = stackedKey.split('-');
               const yScale =
                 unit === '' && yScalesPerUnit[unit] === undefined
-                  ? yScalesPerUnit[undefined]
+                  ? Object.values(yScalesPerUnit)[0]
                   : yScalesPerUnit[unit];
 
               return (
@@ -158,9 +157,9 @@ const Lines = ({
                     scale,
                     scaleLogarithmicBase,
                     unit:
-                      unit === '' && yScalesPerUnit[unit] === undefined
+                      (unit === '' && yScalesPerUnit[unit ?? ''] === undefined
                         ? undefined
-                        : unit,
+                        : unit ?? '') as string,
                     yScalesPerUnit
                   })}
                   {...commonStackedLinesProps}
@@ -174,6 +173,7 @@ const Lines = ({
       {displayThresholdArea && (
         <WrapperThresholdLines
           areaThresholdLines={areaThresholdLines}
+          curve={(Array.isArray(lineStyle) ? lineStyle[0]?.curve : lineStyle?.curve) || 'linear'}
           graphHeight={height}
           lines={displayedLines}
           timeSeries={timeSeries}
@@ -220,10 +220,10 @@ const Lines = ({
                 timeSeries
               });
 
-              const style = getStyle({
+              const style = (lineStyle ? getStyle({
                 metricId: metric_id,
                 style: lineStyle
-              }) as LineStyle;
+              }) : undefined) as LineStyle ?? {} as LineStyle;
 
               return (
                 <g key={metric_id}>
@@ -265,7 +265,7 @@ const Lines = ({
                     dashLength={style?.dashLength}
                     dashOffset={style?.dashOffset}
                     dotOffset={style?.dotOffset}
-                    filled={isNil(style?.showArea) ? filled : style.showArea}
+                    filled={isNil(style?.showArea) ? filled : style.showArea!}
                     graphHeight={height}
                     highlight={highlight}
                     lineColor={lineColor}
@@ -275,7 +275,7 @@ const Lines = ({
                     transparency={
                       isNil(style?.areaTransparency)
                         ? transparency || 80
-                        : style.areaTransparency
+                        : style.areaTransparency!
                     }
                     unit={unit}
                     xScale={xScale}

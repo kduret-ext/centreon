@@ -1,6 +1,6 @@
-// @ts-nocheck
 import { Threshold } from '@visx/threshold';
 
+import { getCurveFactory } from '../../../common';
 import type { TimeValue } from '../../../../common/timeSeries/models';
 
 interface Props {
@@ -40,7 +40,7 @@ const BasicThreshold = ({
       }}
       clipAboveTo={0}
       clipBelowTo={graphHeight}
-      curve={curve}
+      curve={getCurveFactory(curve)}
       data={timeSeries}
       id={id}
       x={getX}

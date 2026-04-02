@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ListingVariant, userAtom } from '@centreon/ui-context';
 
 import { act, renderHook } from '@testing-library/react';
