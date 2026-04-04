@@ -1,7 +1,7 @@
 import { Threshold } from '@visx/threshold';
 
-import { getCurveFactory } from '../../../common';
 import type { TimeValue } from '../../../../common/timeSeries/models';
+import { getCurveFactory } from '../../../common';
 
 interface Props {
   curve: 'linear' | 'natural' | 'step';

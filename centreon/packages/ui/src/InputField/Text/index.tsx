@@ -192,9 +192,17 @@ const TextField = forwardRef(
                 endAdornment: (
                   <OptionalLabelInputAdornment label={label} position="end">
                     {EndAdornment ? (
-                      typeof EndAdornment === 'function' ? <EndAdornment /> : EndAdornment
+                      typeof EndAdornment === 'function' ? (
+                        <EndAdornment />
+                      ) : (
+                        EndAdornment
+                      )
                     ) : (
-                      (textFieldSlotsAndSlotProps?.slotProps?.input as Record<string, React.ReactNode> | undefined)?.endAdornment
+                      (
+                        textFieldSlotsAndSlotProps?.slotProps?.input as
+                          | Record<string, React.ReactNode>
+                          | undefined
+                      )?.endAdornment
                     )}
                   </OptionalLabelInputAdornment>
                 ),

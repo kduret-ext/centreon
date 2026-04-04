@@ -52,7 +52,9 @@ interface Props
   > {
   barStyle: BarStyle;
   graphData: Data;
-  graphRef: MutableRefObject<HTMLDivElement | null> | ((instance: HTMLDivElement | null) => void);
+  graphRef:
+    | MutableRefObject<HTMLDivElement | null>
+    | ((instance: HTMLDivElement | null) => void);
   height: number;
   limitLegend?: false | number;
   orientation: 'vertical' | 'horizontal' | 'auto';
@@ -101,7 +103,9 @@ const ResponsiveBarChart = ({
   const [tooltipData, setTooltipData] = useAtom(tooltipDataAtom);
   const isApplyingZoom = useAtomValue(applyingZoomAtomAtom);
 
-  const { isInViewport } = useIntersection({ element: typeof graphRef === 'function' ? null : graphRef?.current });
+  const { isInViewport } = useIntersection({
+    element: typeof graphRef === 'function' ? null : graphRef?.current
+  });
 
   const displayedLines = useMemo(
     () => (linesGraph || []).filter(({ display }) => display),
@@ -248,7 +252,9 @@ const ResponsiveBarChart = ({
         secondaryClick: legend?.secondaryClick,
         showCalculations: legend?.showCalculations
       }}
-      legendRef={legendRef as unknown as MutableRefObject<HTMLDivElement | null>}
+      legendRef={
+        legendRef as unknown as MutableRefObject<HTMLDivElement | null>
+      }
       limitLegend={limitLegend}
       lines={linesGraph}
       setLines={setLinesGraph}

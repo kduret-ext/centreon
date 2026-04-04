@@ -2,7 +2,6 @@ import { ListSubheader, Typography } from '@mui/material';
 
 import type React from 'react';
 import { useTranslation } from 'react-i18next';
-import type { SelectEntry } from '../..';
 
 import { Button } from '../../../../components/Button';
 import {
@@ -10,6 +9,7 @@ import {
   labelSelectAll,
   labelUnSelectAll
 } from '../../../translatedLabels';
+import type { SelectEntry } from '../..';
 import { useListboxStyles } from './Multi.styles';
 
 const CustomListbox = ({
@@ -40,7 +40,11 @@ interface ListboxProps {
   disableSelectAll?: boolean;
   options: Array<SelectEntry>;
   isOptionSelected: (opt: SelectEntry) => boolean;
-  onChange?: (event: React.SyntheticEvent, value: Array<SelectEntry>, reason: string) => void;
+  onChange?: (
+    event: React.SyntheticEvent,
+    value: Array<SelectEntry>,
+    reason: string
+  ) => void;
   total?: number;
   value?: Array<SelectEntry>;
 }

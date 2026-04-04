@@ -1,14 +1,6 @@
 import { Shape } from '@visx/visx';
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
-import {
-  all,
-  equals,
-  isNil,
-  map,
-  nth,
-  pipe,
-  prop
-} from 'ramda';
+import { all, equals, isNil, map, nth, pipe, prop } from 'ramda';
 import type { ReactElement } from 'react';
 
 import { getDates, getTime } from '../../../../common/timeSeries';
@@ -56,9 +48,8 @@ const StackLines = ({
   maxLeftAxisCharacters
 }: Props): ReactElement => {
   const curveType = getCurveFactory(
-    (Array.isArray(lineStyle)
-      ? lineStyle[0]?.curve
-      : lineStyle?.curve) || 'linear'
+    (Array.isArray(lineStyle) ? lineStyle[0]?.curve : lineStyle?.curve) ||
+      'linear'
   );
   return (
     <Shape.AreaStack
@@ -78,10 +69,13 @@ const StackLines = ({
           const { areaColor, transparency, lineColor, highlight, metric_id } =
             nth(index, lines) as Line;
 
-          const style = (lineStyle ? getStyle({
-            metricId: metric_id,
-            style: lineStyle
-          }) : undefined) as LineStyle ?? {} as LineStyle;
+          const style =
+            ((lineStyle
+              ? getStyle({
+                  metricId: metric_id,
+                  style: lineStyle
+                })
+              : undefined) as LineStyle) ?? ({} as LineStyle);
           const formattedLineWidth = style?.lineWidth ?? 2;
 
           const formattedTransparency = isNil(style?.areaTransparency)
@@ -145,7 +139,13 @@ const StackLines = ({
               />
               <Shape.LinePath
                 curve={curveType}
-                data={linePartStack as unknown as Array<{ 0: number; 1: number | null; data: TimeValue }>}
+                data={
+                  linePartStack as unknown as Array<{
+                    0: number;
+                    1: number | null;
+                    data: TimeValue;
+                  }>
+                }
                 defined={(d) => {
                   return !isNil(d[1]);
                 }}

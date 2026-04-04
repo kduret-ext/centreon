@@ -298,12 +298,16 @@ const Chart = ({
             secondaryClick: legend?.secondaryClick,
             showCalculations: legend?.showCalculations
           }}
-          legendRef={legendRef as unknown as MutableRefObject<HTMLDivElement | null>}
+          legendRef={
+            legendRef as unknown as MutableRefObject<HTMLDivElement | null>
+          }
           limitLegend={limitLegend}
           lines={linesGraph}
           setLines={setLinesGraph}
           title={title}
-          titleRef={titleRef as unknown as MutableRefObject<HTMLDivElement | null>}
+          titleRef={
+            titleRef as unknown as MutableRefObject<HTMLDivElement | null>
+          }
         >
           <GraphValueTooltip
             baseAxis={baseAxis}
@@ -330,7 +334,11 @@ const Chart = ({
               >
                 {!isEmpty(linesDisplayedAsBar) && (
                   <BarGroup
-                    barStyle={Array.isArray(barStyle) ? { opacity: 1, radius: 0.2 } : barStyle}
+                    barStyle={
+                      Array.isArray(barStyle)
+                        ? { opacity: 1, radius: 0.2 }
+                        : barStyle
+                    }
                     isTooltipHidden={false}
                     lines={linesDisplayedAsBar}
                     orientation="horizontal"

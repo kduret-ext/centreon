@@ -463,8 +463,8 @@ export const basicFormInputs: Array<InputProps> = [
     fieldName: 'file',
     file: {
       accept: 'image/*',
-      multiple: true,
-      CustomDropZoneContent: ({ files }) => <div>{files?.length} files</div>
+      CustomDropZoneContent: ({ files }) => <div>{files?.length} files</div>,
+      multiple: true
     },
     group: 'First group',
     label: 'File',

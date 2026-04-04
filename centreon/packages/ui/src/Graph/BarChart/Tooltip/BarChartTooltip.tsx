@@ -61,13 +61,39 @@ const BarChartTooltip = ({
   const displayHighLightedMetric = gt(filteredMetrics.length, 1);
 
   const sortedMetrics = cond<[string | undefined], typeof filteredMetrics>([
-    [equals('name') as (v: string | undefined) => boolean, always(sortBy((item) => path(['metric', 'name'], item) as string, filteredMetrics))],
-    [equals('ascending') as (v: string | undefined) => boolean, always(sortBy(prop('value') as (item: typeof filteredMetrics[number]) => number, filteredMetrics))],
+    [
+      equals('name') as (v: string | undefined) => boolean,
+      always(
+        sortBy(
+          (item) => path(['metric', 'name'], item) as string,
+          filteredMetrics
+        )
+      )
+    ],
+    [
+      equals('ascending') as (v: string | undefined) => boolean,
+      always(
+        sortBy(
+          prop('value') as (item: (typeof filteredMetrics)[number]) => number,
+          filteredMetrics
+        )
+      )
+    ],
     [
       equals('descending') as (v: string | undefined) => boolean,
-      always(reverse(sortBy(prop('value') as (item: typeof filteredMetrics[number]) => number, filteredMetrics)))
+      always(
+        reverse(
+          sortBy(
+            prop('value') as (item: (typeof filteredMetrics)[number]) => number,
+            filteredMetrics
+          )
+        )
+      )
     ],
-    [T as unknown as (v: string | undefined) => boolean, always(filteredMetrics)]
+    [
+      T as unknown as (v: string | undefined) => boolean,
+      always(filteredMetrics)
+    ]
   ])(sortOrder);
 
   return (

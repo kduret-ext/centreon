@@ -112,7 +112,9 @@ const BaseChart = ({
                   placement="left"
                   renderExtraComponent={legend?.renderExtraComponent}
                   secondaryClick={legend?.secondaryClick}
-                  setLinesGraph={setLines as Dispatch<SetStateAction<Array<Line> | null>>}
+                  setLinesGraph={
+                    setLines as Dispatch<SetStateAction<Array<Line> | null>>
+                  }
                   shouldDisplayLegendInCompactMode={
                     shouldDisplayLegendInCompactMode
                   }
@@ -138,7 +140,9 @@ const BaseChart = ({
             placement="bottom"
             renderExtraComponent={legend.renderExtraComponent}
             secondaryClick={legend?.secondaryClick}
-            setLinesGraph={setLines as Dispatch<SetStateAction<Array<Line> | null>>}
+            setLinesGraph={
+              setLines as Dispatch<SetStateAction<Array<Line> | null>>
+            }
             shouldDisplayLegendInCompactMode={shouldDisplayLegendInCompactMode}
             showCalculations={legend?.showCalculations}
           />

@@ -54,9 +54,11 @@ const Modal = ({
       onClose={onClose}
       open={open}
       TransitionComponent={isFullscreen ? Slide : undefined}
-      TransitionProps={{
-        direction: 'up'
-      } as any}
+      TransitionProps={
+        {
+          direction: 'up'
+        } as any
+      }
       {...attr}
     >
       {hasCloseButton && (

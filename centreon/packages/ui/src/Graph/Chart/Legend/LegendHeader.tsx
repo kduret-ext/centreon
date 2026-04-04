@@ -46,10 +46,12 @@ const LegendHeader = ({
               <div className="flex flex-wrap gap-1 whitespace-nowrap">
                 {minMaxAvg.map(({ label, value: subValue }) => (
                   <LegendContent
-                    data={formatMetricValue({
-                      unit: line.unit,
-                      value: subValue
-                    }) ?? ''}
+                    data={
+                      formatMetricValue({
+                        unit: line.unit,
+                        value: subValue
+                      }) ?? ''
+                    }
                     key={label}
                     label={label}
                   />

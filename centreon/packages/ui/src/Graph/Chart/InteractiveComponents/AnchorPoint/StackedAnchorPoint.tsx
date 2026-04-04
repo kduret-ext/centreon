@@ -42,7 +42,13 @@ export const getYAnchorPoint = ({
   const timeValue = stackValues[index];
   const key = (stackValues as unknown as { key: string }).key;
 
-  if (isNil((timeValue as unknown as { data: Record<string, unknown> })?.data?.[key as string])) {
+  if (
+    isNil(
+      (timeValue as unknown as { data: Record<string, unknown> })?.data?.[
+        key as string
+      ]
+    )
+  ) {
     return null;
   }
 

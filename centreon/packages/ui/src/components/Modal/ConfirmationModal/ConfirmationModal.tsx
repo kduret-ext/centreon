@@ -55,7 +55,10 @@ export const ConfirmationModal = <TAtom,>({
     return {
       cancel: getLabel({ atomData: typedAtomData, label: labels.cancel }),
       confirm: getLabel({ atomData: typedAtomData, label: labels.confirm }),
-      description: getLabel({ atomData: typedAtomData, label: labels.description }),
+      description: getLabel({
+        atomData: typedAtomData,
+        label: labels.description
+      }),
       title: getLabel({ atomData: typedAtomData, label: labels.title })
     };
   }, [labels, typedAtomData]);

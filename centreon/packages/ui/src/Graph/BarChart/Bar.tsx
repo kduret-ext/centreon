@@ -1,6 +1,6 @@
-import type { ScaleLinear } from 'd3-scale';
 import { BarRounded } from '@visx/shape';
 import { BarGroupBar, SeriesPoint, StackKey } from '@visx/shape/lib/types';
+import type { ScaleLinear } from 'd3-scale';
 import { equals } from 'ramda';
 import { ReactElement } from 'react';
 

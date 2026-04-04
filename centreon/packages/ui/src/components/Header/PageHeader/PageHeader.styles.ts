@@ -1,29 +1,29 @@
 import { alpha } from '@mui/system';
-import type { CSSObject } from 'tss-react';
 
+import type { CSSObject } from 'tss-react';
 import { makeStyles } from 'tss-react/mui';
 
 const useStyles = makeStyles()((theme) => ({
   header: {
-    alignItems: 'flex-start',
-    borderBottom: `1px solid ${theme.palette.primary.main}`,
-    display: 'flex',
-    flexDirection: 'row',
     '& h1': {
-      fontWeight: theme.typography.fontWeightMedium,
-      margin: theme.spacing(0, 0, 1.5, 0),
-      fontSize: theme.typography.h5.fontSize,
-      lineHeight: theme.typography.h5.lineHeight,
       fontFamily: theme.typography.h5.fontFamily,
-      letterSpacing: theme.typography.h5.letterSpacing
+      fontSize: theme.typography.h5.fontSize,
+      fontWeight: theme.typography.fontWeightMedium,
+      letterSpacing: theme.typography.h5.letterSpacing,
+      lineHeight: theme.typography.h5.lineHeight,
+      margin: theme.spacing(0, 0, 1.5, 0)
     } as CSSObject,
-    justifyContent: 'space-between',
 
     '& nav': {
       display: 'flex',
       gap: theme.spacing(1),
       justifyContent: 'flex-end'
     } as CSSObject,
+    alignItems: 'flex-start',
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
 
     padding: theme.spacing(0, 0, 1.5, 0)
   },
@@ -95,17 +95,17 @@ const useStyles = makeStyles()((theme) => ({
       flexDirection: 'row',
       gap: theme.spacing(2)
     } as CSSObject,
+    '& h1': {
+      fontFamily: theme.typography.h5.fontFamily,
+      fontSize: theme.typography.h5.fontSize,
+      fontWeight: theme.typography.fontWeightBold,
+      letterSpacing: theme.typography.h5.letterSpacing,
+      lineHeight: '1',
+      margin: theme.spacing(0)
+    } as CSSObject,
     alignSelf: 'flex-start',
     display: 'flex',
-    flexDirection: 'column',
-    '& h1': {
-      fontWeight: theme.typography.fontWeightBold,
-      lineHeight: '1',
-      margin: theme.spacing(0),
-      fontSize: theme.typography.h5.fontSize,
-      fontFamily: theme.typography.h5.fontFamily,
-      letterSpacing: theme.typography.h5.letterSpacing
-    } as CSSObject
+    flexDirection: 'column'
   },
   pageHeaderTitleActions: {
     '& > button': {

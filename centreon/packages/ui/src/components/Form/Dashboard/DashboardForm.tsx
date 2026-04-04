@@ -1,7 +1,7 @@
 import { equals } from 'ramda';
 import { type ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type Schema, number, object, string } from 'yup';
+import { number, object, type Schema, string } from 'yup';
 
 import { Form, type FormProps } from '../../../Form';
 import { InputType } from '../../../Form/Inputs/models';

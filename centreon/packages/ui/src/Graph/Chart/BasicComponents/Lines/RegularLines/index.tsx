@@ -126,6 +126,9 @@ export default memo(RegularLine, (prevProps, nextProps) => {
     equals(prevHighlight, nextHighlight) &&
     equals(prevXScaleRange, nextXScaleRange) &&
     equals(prevYScaleDomain, nextYScaleDomain) &&
-    equals(pick(memoizedProps as Array<keyof Props>, prevProps), pick(memoizedProps as Array<keyof Props>, nextProps))
+    equals(
+      pick(memoizedProps as Array<keyof Props>, prevProps),
+      pick(memoizedProps as Array<keyof Props>, nextProps)
+    )
   );
 });

@@ -94,8 +94,12 @@ const Lines = ({
     maxLeftAxisCharacters,
     xScale
   };
-  const leftScale = yScalesPerUnit[axis?.axisYLeft?.unit ?? firstUnit ?? ''] as ScaleLinear<number, number> | undefined;
-  const rightScale = yScalesPerUnit[axis?.axisYRight?.unit ?? secondUnit ?? ''] as ScaleLinear<number, number> | undefined;
+  const leftScale = yScalesPerUnit[axis?.axisYLeft?.unit ?? firstUnit ?? ''] as
+    | ScaleLinear<number, number>
+    | undefined;
+  const rightScale = yScalesPerUnit[
+    axis?.axisYRight?.unit ?? secondUnit ?? ''
+  ] as ScaleLinear<number, number> | undefined;
   const hasUnitDisplayed =
     Boolean(firstUnit || secondUnit) ||
     Boolean(
@@ -156,10 +160,10 @@ const Lines = ({
                     invert: '1',
                     scale,
                     scaleLogarithmicBase,
-                    unit:
-                      (unit === '' && yScalesPerUnit[unit ?? ''] === undefined
-                        ? undefined
-                        : unit ?? '') as string,
+                    unit: (unit === '' &&
+                    yScalesPerUnit[unit ?? ''] === undefined
+                      ? undefined
+                      : (unit ?? '')) as string,
                     yScalesPerUnit
                   })}
                   {...commonStackedLinesProps}
@@ -173,7 +177,11 @@ const Lines = ({
       {displayThresholdArea && (
         <WrapperThresholdLines
           areaThresholdLines={areaThresholdLines}
-          curve={(Array.isArray(lineStyle) ? lineStyle[0]?.curve : lineStyle?.curve) || 'linear'}
+          curve={
+            (Array.isArray(lineStyle)
+              ? lineStyle[0]?.curve
+              : lineStyle?.curve) || 'linear'
+          }
           graphHeight={height}
           lines={displayedLines}
           timeSeries={timeSeries}
@@ -220,10 +228,13 @@ const Lines = ({
                 timeSeries
               });
 
-              const style = (lineStyle ? getStyle({
-                metricId: metric_id,
-                style: lineStyle
-              }) : undefined) as LineStyle ?? {} as LineStyle;
+              const style =
+                ((lineStyle
+                  ? getStyle({
+                      metricId: metric_id,
+                      style: lineStyle
+                    })
+                  : undefined) as LineStyle) ?? ({} as LineStyle);
 
               return (
                 <g key={metric_id}>

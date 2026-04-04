@@ -145,7 +145,11 @@ const ContentEditable = ({
 
   const isTextEmpty =
     isEmpty(root) &&
-    !(editor.getEditorState().toJSON().root as { children?: Array<{ children?: unknown[] }> }).children?.[0]?.children?.length;
+    !(
+      editor.getEditorState().toJSON().root as {
+        children?: Array<{ children?: unknown[] }>;
+      }
+    ).children?.[0]?.children?.length;
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
     setFocused(false);

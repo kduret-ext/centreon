@@ -1,5 +1,4 @@
 import type { LineChartData } from '../models';
-import type { TimeValue } from './models';
 import {
   formatMetricValue,
   formatMetricValueWithUnit,
@@ -18,6 +17,7 @@ import {
   getUnits,
   hasUnitStackedLines
 } from '.';
+import type { TimeValue } from './models';
 
 type TestCase = [number | null, string, 1000 | 1024, string | null];
 
@@ -26,10 +26,10 @@ describe('timeSeries', () => {
     crit: null,
     critical_high_threshold: null,
     critical_low_threshold: null,
-    warning_high_threshold: null,
-    warning_low_threshold: null,
+    host_name: null,
     service_name: null,
-    host_name: null
+    warning_high_threshold: null,
+    warning_low_threshold: null
   };
 
   const graphData: LineChartData = {

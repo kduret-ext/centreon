@@ -239,27 +239,24 @@ const Listing = <
   const rowsToDisplay = useMemo(
     () =>
       subItems?.enable
-        ? rows.reduce<Array<TRow>>(
-            (acc, row): Array<TRow> => {
-              if (
-                row[subItems.getRowProperty()] &&
-                subItemsPivots.includes(row.id)
-              ) {
-                return [
-                  ...acc,
-                  row,
-                  ...row[subItems.getRowProperty()].map((subRow) => ({
-                    ...subRow,
-                    internalListingParentId: row.id,
-                    internalListingParentRow: row
-                  }))
-                ];
-              }
+        ? rows.reduce<Array<TRow>>((acc, row): Array<TRow> => {
+            if (
+              row[subItems.getRowProperty()] &&
+              subItemsPivots.includes(row.id)
+            ) {
+              return [
+                ...acc,
+                row,
+                ...row[subItems.getRowProperty()].map((subRow) => ({
+                  ...subRow,
+                  internalListingParentId: row.id,
+                  internalListingParentRow: row
+                }))
+              ];
+            }
 
-              return [...acc, row];
-            },
-            []
-          )
+            return [...acc, row];
+          }, [])
         : rows,
     [rows, subItemsPivots, subItems]
   );
@@ -698,7 +695,9 @@ const Listing = <
                         <EmptyResult
                           label={
                             labelNoResultFound
-                              ? typeof labelNoResultFound === 'string' ? t(labelNoResultFound) : labelNoResultFound
+                              ? typeof labelNoResultFound === 'string'
+                                ? t(labelNoResultFound)
+                                : labelNoResultFound
                               : t(defaultLabelNoResultFound)
                           }
                         />
@@ -766,7 +765,9 @@ export const MemoizedListing = <TRow extends { id: string | number }>({
     ),
     memoProps: [
       ...memoProps,
-      columns.map(pick(['id', 'label', 'disabled', 'width', 'shortLabel', 'sortField'])),
+      columns.map(
+        pick(['id', 'label', 'disabled', 'width', 'shortLabel', 'sortField'])
+      ),
       columnConfiguration,
       limit,
       widthToMoveTablePagination,

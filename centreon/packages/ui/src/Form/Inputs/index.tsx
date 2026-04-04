@@ -234,7 +234,12 @@ const Inputs = ({
                         : inputProps.additionalLabel;
 
                     if (isLoading) {
-                      return <LoadingSkeleton input={inputProps} key={key as string} />;
+                      return (
+                        <LoadingSkeleton
+                          input={inputProps}
+                          key={key as string}
+                        />
+                      );
                     }
 
                     const Input = getInput(inputProps.type);

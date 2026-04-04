@@ -69,7 +69,9 @@ const AnimatedPie = <Datum,>({
         )}
         data-testid={`${(arc.data as any)?.value || arc.data}-arc`}
         display={
-          includes('transparent', (arc.data as any)?.name || '') ? 'none' : 'inline'
+          includes('transparent', (arc.data as any)?.name || '')
+            ? 'none'
+            : 'inline'
         }
         fill={getColor(arc)}
         onMouseEnter={(event) => {

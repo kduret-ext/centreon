@@ -93,7 +93,9 @@ const Graph = ({
         color={colorScale}
         data={[barStackData]}
         keys={keys}
-        {...(isVerticalBar ? { x: () => undefined, y: () => undefined } : { x: () => undefined, y: () => undefined }) as any}
+        {...((isVerticalBar
+          ? { x: () => undefined, y: () => undefined }
+          : { x: () => undefined, y: () => undefined }) as any)}
         xScale={xScale}
         yScale={yScale}
       >
@@ -120,7 +122,11 @@ const Graph = ({
                         color={bar.color}
                         label={bar.key}
                         total={total}
-                        value={(barStack.bars[0].bar.data as Record<string, number>)[barStack.key as string]}
+                        value={
+                          (barStack.bars[0].bar.data as Record<string, number>)[
+                            barStack.key as string
+                          ]
+                        }
                         {...tooltipProps}
                       />
                     )
@@ -159,7 +165,9 @@ const Graph = ({
                         {getValueByUnit({
                           total,
                           unit: unit || 'number',
-                          value: (barStack.bars[0].bar.data as Record<string, number>)[barStack.key as string]
+                          value: (
+                            barStack.bars[0].bar.data as Record<string, number>
+                          )[barStack.key as string]
                         })}
                       </Text>
                     )}

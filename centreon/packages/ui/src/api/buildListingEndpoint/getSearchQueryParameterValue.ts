@@ -110,7 +110,9 @@ const getConditionsSearchQueryParameterValue = (
             ];
           }
 
-          return (toPairs as (obj: object) => Array<[string, unknown]>)(values || {}).map(([operator, operatorValue]) => ({
+          return (toPairs as (obj: object) => Array<[string, unknown]>)(
+            values || {}
+          ).map(([operator, operatorValue]) => ({
             [listField]: {
               [operator]: operatorValue
             }

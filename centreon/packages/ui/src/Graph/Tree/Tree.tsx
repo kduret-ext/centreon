@@ -98,7 +98,11 @@ export const Tree = <TData extends BaseProp>({
             <DescendantNodes
               descendants={subTree.descendants()}
               expandCollapseNode={expandCollapseNode}
-              getExpanded={getExpanded as (d: Node<TData>) => Array<Node<TData>> | undefined}
+              getExpanded={
+                getExpanded as (
+                  d: Node<TData>
+                ) => Array<Node<TData>> | undefined
+              }
               nodeSize={{
                 height: node.height,
                 width: node.width

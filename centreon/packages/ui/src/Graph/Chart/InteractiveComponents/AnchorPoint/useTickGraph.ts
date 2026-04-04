@@ -48,7 +48,10 @@ const useTickGraph = ({
   const [tickAxisRight, setTickAxisRight] = useState<string | null>(null);
   const guidingLinesRef = useRef<SVGGElement | null>(null);
 
-  const { axisRight, axisLeft } = useAxisY({ data: { baseAxis, lines }, isHorizontal: true });
+  const { axisRight, axisLeft } = useAxisY({
+    data: { baseAxis, lines },
+    isHorizontal: true
+  });
 
   const mousePosition = useAtomValue(mousePositionAtom);
 

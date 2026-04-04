@@ -41,11 +41,7 @@ const ExpandableContainer = ({ children }: Props) => {
     <>
       {children(reducedChildrenData)}
       {isExpanded && (
-        <Modal
-          hasCloseButton={false}
-          open={isExpanded}
-          size="xlarge"
-        >
+        <Modal hasCloseButton={false} open={isExpanded} size="xlarge">
           {children(expandedChildrenData)}
         </Modal>
       )}

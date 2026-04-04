@@ -113,9 +113,7 @@ const PopoverMenu = ({
             {...popperProps}
           >
             <Paper className={tooltipClassName}>
-              {typeof children === 'function'
-                ? children({ close })
-                : children}
+              {typeof children === 'function' ? children({ close }) : children}
             </Paper>
           </Popper>
         </ClickAwayListener>

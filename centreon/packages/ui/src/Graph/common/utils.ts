@@ -203,8 +203,10 @@ export const getStyle = ({
   metricId
 }: GetStyleProps): BarStyle | LineStyle => {
   return equals(type(style), 'Array')
-    ? (style as any).find((metricStyle: any) => equals(metricId, metricStyle.metricId))
-    : style as any;
+    ? (style as any).find((metricStyle: any) =>
+        equals(metricId, metricStyle.metricId)
+      )
+    : (style as any);
 };
 
 interface GetFormattedAxisValuesProps {

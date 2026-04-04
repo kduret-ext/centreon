@@ -41,7 +41,9 @@ const Snackbar = forwardRef(
   ): JSX.Element => {
     const { classes } = useStyles();
     const { closeSnackbar } = useSnackbar();
-    const timeoutId = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const timeoutId = useRef<ReturnType<typeof setTimeout> | undefined>(
+      undefined
+    );
 
     useEffect((): void => {
       timeoutId.current = setTimeout(() => {

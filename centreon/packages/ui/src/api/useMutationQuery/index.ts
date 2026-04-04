@@ -150,7 +150,11 @@ const useMutationQuery = <T extends object, TMeta>({
           return { previousListing };
         }
       : onMutate,
-    onSettled: onSettled as UseMutationOptions<T | ResponseError, ResponseError, Variables<TMeta, T>>['onSettled'],
+    onSettled: onSettled as UseMutationOptions<
+      T | ResponseError,
+      ResponseError,
+      Variables<TMeta, T>
+    >['onSettled'],
     onSuccess: (data, variables, context) => {
       if (optimisticListing?.enabled) {
         const isQueryKeyArray = equals(

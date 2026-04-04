@@ -46,13 +46,19 @@ const DeleteModal = <TData extends { id: number; name: string }>({
     <Modal onClose={close} open={isOpen} size={modalSize}>
       <Modal.Header>
         {isAFunction(labels.title)
-          ? (labels.title as (item: ItemToDelete) => string | ReactElement)(itemToDeleteRef.current as TData)
+          ? (labels.title as (item: ItemToDelete) => string | ReactElement)(
+              itemToDeleteRef.current as TData
+            )
           : (labels.title as string | ReactElement)}
       </Modal.Header>
       <Modal.Body>
         <Typography>
           {isAFunction(labels.description)
-            ? (labels.description as (item: ItemToDelete) => string | ReactElement)(itemToDeleteRef.current as TData)
+            ? (
+                labels.description as (
+                  item: ItemToDelete
+                ) => string | ReactElement
+              )(itemToDeleteRef.current as TData)
             : (labels.description as string | ReactElement)}
         </Typography>
       </Modal.Body>

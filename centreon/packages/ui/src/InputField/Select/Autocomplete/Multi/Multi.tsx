@@ -36,7 +36,8 @@ const MultiAutocompleteField = ({
   disableSortedOptions = false,
   disableSelectAll = true,
   optionProperty = 'name',
-  getOptionLabel = (option): string => typeof option === 'string' ? option : option?.name,
+  getOptionLabel = (option): string =>
+    typeof option === 'string' ? option : option?.name,
   getTagLabel = (option): string => option[optionProperty],
   getOptionTooltipLabel,
   chipProps,
@@ -89,14 +90,18 @@ const MultiAutocompleteField = ({
 
   return (
     <Autocomplete
-      {...{
+      {...({
         disableCloseOnSelect: true,
         displayOptionThumbnail: true,
         getLimitTagsText,
         ListboxComponent: ListboxComponent({
           disableSelectAll,
           isOptionSelected,
-          onChange: onChange as (event: React.SyntheticEvent, value: Array<SelectEntry>, reason: string) => void,
+          onChange: onChange as (
+            event: React.SyntheticEvent,
+            value: Array<SelectEntry>,
+            reason: string
+          ) => void,
           options: options as Array<SelectEntry>,
           total,
           value: values
@@ -109,7 +114,9 @@ const MultiAutocompleteField = ({
             key={option.id}
             {...(renderProps as React.HTMLAttributes<HTMLLIElement>)}
           >
-            <Option checkboxSelected={selected}>{getOptionLabel(option)}</Option>
+            <Option checkboxSelected={selected}>
+              {getOptionLabel(option)}
+            </Option>
           </li>
         ),
         renderTags: (renderedValue, getTagProps): React.ReactNode =>
@@ -118,7 +125,7 @@ const MultiAutocompleteField = ({
             : renderTags(renderedValue, getTagProps),
         value: values,
         ...props
-      } as React.ComponentProps<typeof Autocomplete>}
+      } as React.ComponentProps<typeof Autocomplete>)}
     />
   );
 };

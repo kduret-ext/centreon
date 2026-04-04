@@ -297,13 +297,17 @@ const getSortedStackedLines = (lines: Array<Line>): Array<Line> =>
 
 const getInvertedStackedLines = (lines: Array<Line>): Array<Line> =>
   pipe(
-    filter(({ invert }: Line): boolean => !!invert) as (lines: Line[]) => Array<Line>,
+    filter(({ invert }: Line): boolean => !!invert) as (
+      lines: Line[]
+    ) => Array<Line>,
     getSortedStackedLines
   )(lines);
 
 const getNotInvertedStackedLines = (lines: Array<Line>): Array<Line> =>
   pipe(
-    reject(({ invert }: Line): boolean => !!invert) as (lines: Line[]) => Array<Line>,
+    reject(({ invert }: Line): boolean => !!invert) as (
+      lines: Line[]
+    ) => Array<Line>,
     getSortedStackedLines
   )(lines);
 
@@ -427,10 +431,12 @@ const getScale = ({
     : getSanitizedValues([
         getMax(graphValues),
         getMax(stackedValues),
-        hasOnlyZeroesHasValue(graphValues) ? 1 : null as any,
+        hasOnlyZeroesHasValue(graphValues) ? 1 : (null as any),
         Math.max(...thresholds)
       ]);
-  const maxValue = Math.max(...(sanitizedValuesForMaximum as any).filter(isNotNil));
+  const maxValue = Math.max(
+    ...(sanitizedValuesForMaximum as any).filter(isNotNil)
+  );
 
   const minValueWithMargin =
     (hasDisplayAsBar && minValue > 0) ||

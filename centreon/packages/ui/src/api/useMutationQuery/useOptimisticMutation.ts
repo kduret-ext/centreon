@@ -64,7 +64,10 @@ export const useOptimisticMutation = <T, TMeta>({
     const updatedPayload =
       payload && 'id' in (payload as Record<string, unknown>)
         ? payload
-        : { ...(payload as Record<string, unknown>), id: (optimisticListing?.total ?? 0) + 1 };
+        : {
+            ...(payload as Record<string, unknown>),
+            id: (optimisticListing?.total ?? 0) + 1
+          };
 
     const hasOnlyOnePage =
       (optimisticListing?.total || 0) <= (optimisticListing?.limit || 0);
@@ -77,7 +80,10 @@ export const useOptimisticMutation = <T, TMeta>({
     )?.[1] as { result: Array<Record<string, unknown>> } | undefined;
 
     if (equals(Method.POST, method) && !isFormDataPayload && hasOnlyOnePage) {
-      const newItems = append(updatedPayload as Record<string, unknown>, items!.result);
+      const newItems = append(
+        updatedPayload as Record<string, unknown>,
+        items!.result
+      );
 
       return { ...items, result: newItems };
     }
@@ -100,16 +106,24 @@ export const useOptimisticMutation = <T, TMeta>({
       const itemIndex = items!.result.findIndex(({ id }) =>
         equals(id, (_meta as Record<string, unknown>)?.id)
       );
-      const item = items!.result.find(({ id }) => equals(id, (_meta as Record<string, unknown>)?.id));
+      const item = items!.result.find(({ id }) =>
+        equals(id, (_meta as Record<string, unknown>)?.id)
+      );
       const updatedItem = equals(Method.PUT, method)
         ? updatedPayload
         : {
             ...item,
             ...(isFormDataPayload
-              ? (Object as any).fromEntries((updatedPayload as unknown as FormData).entries())
+              ? (Object as any).fromEntries(
+                  (updatedPayload as unknown as FormData).entries()
+                )
               : updatedPayload)
           };
-      const newItems = update(itemIndex, updatedItem as Record<string, unknown>, items!.result);
+      const newItems = update(
+        itemIndex,
+        updatedItem as Record<string, unknown>,
+        items!.result
+      );
 
       return { ...items, result: newItems };
     }

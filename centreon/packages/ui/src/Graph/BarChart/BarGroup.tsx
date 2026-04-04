@@ -195,7 +195,10 @@ export default memo(BarGroup, (prevProps, nextProps) => {
   ];
 
   return (
-    equals(pick(propsToMemoize as readonly (keyof Props)[], prevProps), pick(propsToMemoize as readonly (keyof Props)[], nextProps)) &&
+    equals(
+      pick(propsToMemoize as readonly (keyof Props)[], prevProps),
+      pick(propsToMemoize as readonly (keyof Props)[], nextProps)
+    ) &&
     equals(prevYScale, nextYScale) &&
     equals(prevXScale, nextXScale)
   );
