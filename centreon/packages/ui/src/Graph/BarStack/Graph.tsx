@@ -93,9 +93,10 @@ const Graph = ({
         color={colorScale}
         data={[barStackData]}
         keys={keys}
-        {...((isVerticalBar
-          ? { x: () => undefined, y: () => undefined }
-          : { x: () => undefined, y: () => undefined }) as any)}
+        {
+          // biome-ignore lint/suspicious/noExplicitAny: visx BarStack complex Accessor types
+          ...({ x: () => 0, y: () => 0 } as any)
+        }
         xScale={xScale}
         yScale={yScale}
       >

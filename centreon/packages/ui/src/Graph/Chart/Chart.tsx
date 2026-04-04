@@ -370,7 +370,7 @@ const Chart = ({
                   />
                 )}
                 {additionalLines ? (
-                  <>
+                  <g>
                     {additionalLines.map((additionalLine) => (
                       <AdditionalLine
                         key={additionalLine.yValue}
@@ -379,7 +379,7 @@ const Chart = ({
                         yScale={yScalesPerUnit[additionalLine.unit]}
                       />
                     ))}
-                  </>
+                  </g>
                 ) : null}
                 <InteractionWithGraph
                   annotationData={{ ...annotationEvent }}

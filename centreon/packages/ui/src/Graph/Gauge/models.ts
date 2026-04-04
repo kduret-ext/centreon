@@ -1,5 +1,13 @@
+import type { ReactNode } from 'react';
+
 import type { Thresholds } from '../common/models';
 import type { Metric } from '../common/timeSeries/models';
+
+interface ShowTooltipArgs {
+  tooltipData: ReactNode;
+  tooltipLeft: number;
+  tooltipTop: number;
+}
 
 export interface GaugeProps {
   adaptedMaxValue: number;
@@ -8,7 +16,7 @@ export interface GaugeProps {
   hideTooltip: () => void;
   metric: Metric;
   radius: number;
-  showTooltip: (args) => void;
+  showTooltip: (args: ShowTooltipArgs) => void;
   thresholds: Thresholds;
   width: number;
 }

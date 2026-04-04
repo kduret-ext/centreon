@@ -1,5 +1,5 @@
 import { useAtomValue, useSetAtom } from 'jotai';
-import { equals, isNotNil } from 'ramda';
+import { isNotNil } from 'ramda';
 import { useCallback, useMemo } from 'react';
 
 import { Modal } from '../../Modal';

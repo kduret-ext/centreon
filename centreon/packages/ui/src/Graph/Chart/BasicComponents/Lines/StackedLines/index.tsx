@@ -1,6 +1,6 @@
 import { Shape } from '@visx/visx';
 import type { ScaleLinear, ScaleTime } from 'd3-scale';
-import { all, equals, isNil, map, nth, pipe, prop } from 'ramda';
+import { all, equals, isNil, nth, prop } from 'ramda';
 import type { ReactElement } from 'react';
 
 import { getDates, getTime } from '../../../../common/timeSeries';
@@ -80,7 +80,7 @@ const StackLines = ({
 
           const formattedTransparency = isNil(style?.areaTransparency)
             ? transparency || 80
-            : style.areaTransparency!;
+            : (style.areaTransparency ?? 80);
 
           const linePartStack = stack.map((stackValue, index) => {
             if (isNil(timeSeries[index][metric_id])) {
@@ -94,7 +94,7 @@ const StackLines = ({
             <g key={`stack-${prop('key', stack)}`}>
               {displayAnchor && (
                 <StackedAnchorPoint
-                  areaColor={(style as any)?.areaColor}
+                  areaColor={areaColor}
                   hasSecondUnit={hasSecondUnit}
                   lineColor={lineColor}
                   maxLeftAxisCharacters={maxLeftAxisCharacters}

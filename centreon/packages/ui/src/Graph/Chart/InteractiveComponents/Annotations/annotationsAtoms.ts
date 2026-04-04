@@ -176,16 +176,18 @@ export const getFillColorDerivedAtom = atom(
 export const getIconColorDerivedAtom = atom(
   (get) =>
     ({ color, annotation }: AnnotationColor): string =>
-      (cond as any)([
-        [
-          (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
-            getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
-          always(color)
-        ],
-        [
-          pipe(equals<AnnotationAtom | undefined>(annotation), not),
-          always(alpha(color, 0.2))
-        ],
-        [T, always(color)]
-      ])(get(annotationHoveredAtom)) as string
+      (
+        cond([
+          [
+            (hoveredAnnotation: AnnotationAtom | undefined): boolean =>
+              getIsNotHoveredOrNil({ annotation, hoveredAnnotation }),
+            always(color)
+          ],
+          [
+            pipe(equals<AnnotationAtom | undefined>(annotation), not),
+            always(alpha(color, 0.2))
+          ],
+          [T, always(color)]
+        ]) as (val: AnnotationAtom | undefined) => string
+      )(get(annotationHoveredAtom))
 );

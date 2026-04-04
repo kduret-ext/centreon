@@ -127,7 +127,10 @@ export const emphasizeCurveColor = ({
 
   if (gte(getLuminance(color), 0.5)) {
     if (gte(index, totalLevels * 2)) {
-      return darken(color, normalizeLevel({ factor, level: last(levels)! }));
+      return darken(
+        color,
+        normalizeLevel({ factor, level: last(levels) ?? 0 })
+      );
     }
     if (gte(index, totalLevels)) {
       return darken(
@@ -140,7 +143,7 @@ export const emphasizeCurveColor = ({
   }
 
   if (gte(index, totalLevels * 2)) {
-    return lighten(color, normalizeLevel({ factor, level: last(levels)! }));
+    return lighten(color, normalizeLevel({ factor, level: last(levels) ?? 0 }));
   }
   if (gte(index, totalLevels)) {
     return lighten(
@@ -201,12 +204,12 @@ interface GetStyleProps {
 export const getStyle = ({
   style,
   metricId
-}: GetStyleProps): BarStyle | LineStyle => {
+}: GetStyleProps): BarStyle | LineStyle | undefined => {
   return equals(type(style), 'Array')
-    ? (style as any).find((metricStyle: any) =>
-        equals(metricId, metricStyle.metricId)
+    ? (style as Array<(LineStyle | BarStyle) & { metricId: number }>).find(
+        (metricStyle) => equals(metricId, metricStyle.metricId)
       )
-    : (style as any);
+    : (style as BarStyle | LineStyle);
 };
 
 interface GetFormattedAxisValuesProps {

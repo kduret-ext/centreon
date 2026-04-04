@@ -66,7 +66,13 @@ const MultiAutocompleteField = ({
             size="medium"
             {...getTagProps({ index })}
             {...chipProps}
-            onDelete={(event) => (chipProps?.onDelete as ((event: React.SyntheticEvent, option: SelectEntry) => void) | undefined)?.(event, option)}
+            onDelete={(event) =>
+              (
+                chipProps?.onDelete as
+                  | ((event: React.SyntheticEvent, option: SelectEntry) => void)
+                  | undefined
+              )?.(event, option)
+            }
           />
         </Tooltip>
       );

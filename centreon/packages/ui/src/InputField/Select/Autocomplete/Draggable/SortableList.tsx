@@ -2,7 +2,7 @@ import { lighten } from '@mui/material';
 
 import { rectIntersection } from '@dnd-kit/core';
 import { rectSortingStrategy } from '@dnd-kit/sortable';
-import { find, map, propEq } from 'ramda';
+import { find, propEq } from 'ramda';
 import { makeStyles } from 'tss-react/mui';
 
 import SortableItems from '../../../../SortableItems';

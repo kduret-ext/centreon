@@ -20,6 +20,7 @@ const CheckboxGroup = ({
 
   const fieldNamePath = split('.', fieldName);
 
+  // biome-ignore lint/suspicious/noExplicitAny: formik dynamic path value
   const value = path(fieldNamePath, values) as any;
 
   const disabled = getDisabled?.(values) || false;
@@ -29,7 +30,7 @@ const CheckboxGroup = ({
     if (!disabled && !hideCheckbox) {
       return;
     }
-    const resetedValue = value?.map((element) => ({
+    const resetedValue = (value ?? []).map((element) => ({
       ...element,
       checked: false
     }));
@@ -38,8 +39,8 @@ const CheckboxGroup = ({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const label = event.target.id;
-    if (!includes(label, value)) {
-      setFieldValue(fieldName, [...value, label]);
+    if (!includes(label, value ?? [])) {
+      setFieldValue(fieldName, [...(value ?? []), label]);
 
       return;
     }
@@ -63,7 +64,7 @@ const CheckboxGroup = ({
           labelPlacement={checkbox?.labelPlacement || 'end'}
           onChange={handleChange}
           options={checkbox?.options as Array<string>}
-          values={value}
+          values={value ?? []}
         />
       </Box>
     ),

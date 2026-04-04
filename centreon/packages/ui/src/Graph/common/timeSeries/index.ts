@@ -26,7 +26,6 @@ import {
   negate,
   path,
   pipe,
-  pluck,
   prop,
   propEq,
   reduce,
@@ -68,14 +67,17 @@ const defaultDsData = {
 const toTimeTickWithMetrics = ({
   metrics,
   times
+}: {
+  metrics: Array<Metric>;
+  times: Array<string>;
 }): Array<TimeTickWithMetrics> =>
   map(
-    (timeTick) => ({
+    (timeTick: string) => ({
       metrics,
       timeTick
     }),
     times
-  ) as any;
+  );
 
 const toTimeTickValue = (
   { timeTick, metrics }: TimeTickWithMetrics,
@@ -177,8 +179,10 @@ const getMax = (values: Array<number>): number => Math.max(...values);
 const getTime = (timeValue: TimeValue): number =>
   new Date(timeValue.timeTick).valueOf();
 
-const getMetrics = (timeValue: TimeValue): Array<string> =>
-  (pipe as any)(keys, reject(equals('timeTick')))(timeValue);
+const getMetrics = (timeValue: TimeValue): Array<string> => {
+  const allKeys = keys(timeValue) as Array<string>;
+  return allKeys.filter((key) => key !== 'timeTick');
+};
 
 const getValueForMetric =
   (timeValue: TimeValue) =>
@@ -186,7 +190,7 @@ const getValueForMetric =
     prop(metric_id, timeValue) as number;
 
 const getUnits = (lines: Array<Line>): Array<string> =>
-  pipe(map(prop('unit') as any), uniq)(lines) as any;
+  uniq(map((line: Line) => line.unit, lines));
 
 interface ValuesForUnitProps {
   lines: Array<Line>;
@@ -270,9 +274,9 @@ const getStackedMetricValues = ({
     );
 
   const metricsValues: Array<Array<number>> = pipe(
-    map(prop('metric_id') as any) as any,
-    map(getTimeSeriesValuesForMetric) as any
-  )(lines as Array<Line>) as any;
+    map((line: Line) => line.metric_id),
+    map(getTimeSeriesValuesForMetric)
+  )(lines);
 
   if (isEmpty(metricsValues) || isNil(metricsValues)) {
     return [];
@@ -298,7 +302,7 @@ const getSortedStackedLines = (lines: Array<Line>): Array<Line> =>
 const getInvertedStackedLines = (lines: Array<Line>): Array<Line> =>
   pipe(
     filter(({ invert }: Line): boolean => !!invert) as (
-      lines: Line[]
+      lines: Array<Line>
     ) => Array<Line>,
     getSortedStackedLines
   )(lines);
@@ -306,7 +310,7 @@ const getInvertedStackedLines = (lines: Array<Line>): Array<Line> =>
 const getNotInvertedStackedLines = (lines: Array<Line>): Array<Line> =>
   pipe(
     reject(({ invert }: Line): boolean => !!invert) as (
-      lines: Line[]
+      lines: Array<Line>
     ) => Array<Line>,
     getSortedStackedLines
   )(lines);
@@ -316,8 +320,10 @@ interface HasStackedLines {
   unit: string;
 }
 
-const hasUnitStackedLines = ({ lines, unit }: HasStackedLines): boolean =>
-  (pipe as any)(getSortedStackedLines, any(propEq(unit, 'unit')))(lines);
+const hasUnitStackedLines = ({ lines, unit }: HasStackedLines): boolean => {
+  const sorted = getSortedStackedLines(lines);
+  return any(propEq(unit, 'unit'))(sorted);
+};
 
 const getTimeSeriesForLines = ({
   lines,
@@ -329,7 +335,7 @@ const getTimeSeriesForLines = ({
   return map(
     ({ timeTick, ...metricsValue }): TimeValue => ({
       ...reduce(
-        (acc, metric_id): Omit<TimeValue, 'timePick'> => {
+        (acc, metric_id): Omit<TimeValue, 'timeTick'> => {
           return {
             ...acc,
             [metric_id]:
@@ -340,7 +346,7 @@ const getTimeSeriesForLines = ({
                 : metricsValue[metric_id]
           };
         },
-        {} as any,
+        {} as Omit<TimeValue, 'timeTick'>,
         metrics
       ),
       timeTick
@@ -388,6 +394,7 @@ const getSanitizedValues = reject(
     value:
       | number
       | boolean
+      | null
       | typeof Number.POSITIVE_INFINITY
       | typeof Number.NEGATIVE_INFINITY
   ) =>
@@ -431,12 +438,10 @@ const getScale = ({
     : getSanitizedValues([
         getMax(graphValues),
         getMax(stackedValues),
-        hasOnlyZeroesHasValue(graphValues) ? 1 : (null as any),
+        hasOnlyZeroesHasValue(graphValues) ? 1 : null,
         Math.max(...thresholds)
       ]);
-  const maxValue = Math.max(
-    ...(sanitizedValuesForMaximum as any).filter(isNotNil)
-  );
+  const maxValue = Math.max(...sanitizedValuesForMaximum.filter(isNotNil));
 
   const minValueWithMargin =
     (hasDisplayAsBar && minValue > 0) ||

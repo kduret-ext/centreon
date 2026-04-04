@@ -42,7 +42,9 @@ const ResponsiveSingleBar = ({
   const { classes } = useTooltipStyles();
   const theme = useTheme();
 
-  const metric = getMetricWithLatestData(data!) as Metric;
+  const metric = getMetricWithLatestData(
+    data ?? { global: {}, metrics: [], times: [] }
+  ) as Metric;
   const latestMetricData = head(metric.data) as number;
   const thresholdValues = thresholds.enabled
     ? flatten([

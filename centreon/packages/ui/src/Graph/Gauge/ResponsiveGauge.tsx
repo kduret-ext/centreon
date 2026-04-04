@@ -104,7 +104,7 @@ const ResponsiveGauge = ({
               hideTooltip={hideTooltip}
               metric={metric}
               radius={radius}
-              showTooltip={showTooltip}
+              showTooltip={showTooltip as GaugeProps['showTooltip']}
               thresholds={thresholds}
             />
             <PieData

@@ -44,7 +44,7 @@ interface ContentProps {
 }
 
 export interface RootComponentProps {
-  children: JSX.Element | null;
+  children: React.ReactNode;
   isInDragOverlay?: boolean;
 }
 
@@ -185,32 +185,30 @@ const SortableItems = <T extends { [propertyToFilterItemsOn]: string }>({
     >
       <SortableContext items={sortableItemsIds} strategy={sortingStrategy}>
         <RootComponent>
-          <>
-            {sortableItemsIds.map((sortableItemId, index) => {
-              const item = getItemById(sortableItemId) as
-                | Record<string, unknown>
-                | undefined;
+          {sortableItemsIds.map((sortableItemId, index) => {
+            const item = getItemById(sortableItemId) as
+              | Record<string, unknown>
+              | undefined;
 
-              if (isNil(item)) {
-                return null;
-              }
+            if (isNil(item)) {
+              return null;
+            }
 
-              return (
-                not(getDisableItemCondition(item as T)) && (
-                  <SortableItem
-                    Content={Content}
-                    index={index}
-                    itemId={sortableItemId}
-                    itemProps={itemProps}
-                    key={sortableItemId}
-                    memoProps={memoProps}
-                    {...pick(itemProps, item)}
-                    additionalProps={additionalProps}
-                  />
-                )
-              );
-            })}
-          </>
+            return (
+              not(getDisableItemCondition(item as T)) && (
+                <SortableItem
+                  Content={Content}
+                  index={index}
+                  itemId={sortableItemId}
+                  itemProps={itemProps}
+                  key={sortableItemId}
+                  memoProps={memoProps}
+                  {...pick(itemProps, item)}
+                  additionalProps={additionalProps}
+                />
+              )
+            );
+          })}
         </RootComponent>
       </SortableContext>
       <DragOverlay style={{ zIndex: theme.zIndex.tooltip }}>

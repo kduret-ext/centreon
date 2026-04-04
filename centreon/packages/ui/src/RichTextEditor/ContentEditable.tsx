@@ -147,7 +147,7 @@ const ContentEditable = ({
     isEmpty(root) &&
     !(
       editor.getEditorState().toJSON().root as {
-        children?: Array<{ children?: unknown[] }>;
+        children?: Array<{ children?: Array<unknown> }>;
       }
     ).children?.[0]?.children?.length;
 

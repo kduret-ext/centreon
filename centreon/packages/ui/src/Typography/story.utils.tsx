@@ -30,7 +30,7 @@ const TypographyStory = (): JSX.Element => {
   const { classes } = useStyles();
   const { typography } = useTheme();
 
-  const variants: TypographyVariant[] = [
+  const variants: Array<TypographyVariant> = [
     'h1',
     'h2',
     'h3',

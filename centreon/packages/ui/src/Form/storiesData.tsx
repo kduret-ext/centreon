@@ -330,7 +330,7 @@ export const basicFormInputs: Array<InputProps> = [
             customQueryParameters: [],
             endpoint: 'endpoint',
             helperText: 'Hello I am testing'
-          } as any,
+          } as InputProps['connectedAutocomplete'],
           fieldName: 'group',
           label: 'Group (Single connected autocomplete)',
           type: InputType.SingleConnectedAutocomplete
@@ -340,7 +340,7 @@ export const basicFormInputs: Array<InputProps> = [
             additionalConditionParameters: [],
             customQueryParameters: [],
             endpoint: 'endpoint'
-          } as any,
+          } as InputProps['connectedAutocomplete'],
           fieldName: 'animals',
           label: 'Animals (Multi connected autocomplete)',
           type: InputType.MultiConnectedAutocomplete

@@ -110,7 +110,10 @@ const ConnectedAutocomplete = ({
     [filterKey]
   );
 
-  const value = path(fieldNamePath, values) as any;
+  const value = path(fieldNamePath, values) as
+    | Record<string, unknown>
+    | Array<Record<string, unknown>>
+    | undefined;
 
   const error = path(fieldNamePath, touched)
     ? path(fieldNamePath, errors)
@@ -128,7 +131,10 @@ const ConnectedAutocomplete = ({
   );
 
   const deleteItem = (_, option): void => {
-    const newValue = reject(propEq(option.id, 'id'), value);
+    const newValue = reject(
+      propEq(option.id, 'id'),
+      (value ?? []) as Array<Record<string, unknown>>
+    );
 
     setFieldTouched(fieldName, true, false);
     setFieldValue(fieldName, newValue);

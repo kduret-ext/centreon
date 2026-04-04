@@ -1,4 +1,4 @@
-import { equals, isNotNil } from 'ramda';
+import { isNotNil } from 'ramda';
 
 import { useFetchQuery } from '../../..';
 import type { GetItem } from '../models';

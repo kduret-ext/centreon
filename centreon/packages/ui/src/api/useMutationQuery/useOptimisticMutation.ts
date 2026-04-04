@@ -82,17 +82,17 @@ export const useOptimisticMutation = <T, TMeta>({
     if (equals(Method.POST, method) && !isFormDataPayload && hasOnlyOnePage) {
       const newItems = append(
         updatedPayload as Record<string, unknown>,
-        items!.result
+        items?.result ?? []
       );
 
       return { ...items, result: newItems };
     }
 
     if (equals(Method.DELETE, method) && hasOnlyOnePage) {
-      const itemIndex = items!.result.findIndex(({ id }) =>
+      const itemIndex = items?.result.findIndex(({ id }) =>
         equals(id, (_meta as Record<string, unknown>)?.id)
       );
-      const newItems = remove(itemIndex, 1, items!.result);
+      const newItems = remove(itemIndex ?? 0, 1, items?.result ?? []);
 
       return { ...items, result: newItems };
     }
@@ -103,10 +103,10 @@ export const useOptimisticMutation = <T, TMeta>({
         (equals(Method.POST, method) && isFormDataPayload)) &&
       hasOnlyOnePage
     ) {
-      const itemIndex = items!.result.findIndex(({ id }) =>
+      const itemIndex = items?.result.findIndex(({ id }) =>
         equals(id, (_meta as Record<string, unknown>)?.id)
       );
-      const item = items!.result.find(({ id }) =>
+      const item = items?.result.find(({ id }) =>
         equals(id, (_meta as Record<string, unknown>)?.id)
       );
       const updatedItem = equals(Method.PUT, method)
@@ -114,15 +114,19 @@ export const useOptimisticMutation = <T, TMeta>({
         : {
             ...item,
             ...(isFormDataPayload
-              ? (Object as any).fromEntries(
-                  (updatedPayload as unknown as FormData).entries()
-                )
+              ? (
+                  Object as unknown as {
+                    fromEntries: (
+                      entries: IterableIterator<[string, FormDataEntryValue]>
+                    ) => Record<string, unknown>;
+                  }
+                ).fromEntries((updatedPayload as unknown as FormData).entries())
               : updatedPayload)
           };
       const newItems = update(
-        itemIndex,
+        itemIndex ?? 0,
         updatedItem as Record<string, unknown>,
-        items!.result
+        items?.result ?? []
       );
 
       return { ...items, result: newItems };

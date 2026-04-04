@@ -35,7 +35,9 @@ const DeleteModal = <TData extends { id: number; name: string }>({
   }, [setItemToDelete]);
 
   const confirm = useCallback(() => {
-    deleteItem(itemToDeleteRef.current!).then(close);
+    if (itemToDeleteRef.current) {
+      deleteItem(itemToDeleteRef.current).then(close);
+    }
   }, [close, deleteItem]);
 
   if (isOpen) {

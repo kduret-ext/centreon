@@ -33,7 +33,10 @@ const RoleSelectField = ({
         formControlProps={{}}
         fullWidth
         label={label}
-        onChange={change as any}
+        onChange={
+          // biome-ignore lint/suspicious/noExplicitAny: complex MUI SelectProps intersection type
+          change as any
+        }
         options={roles}
         selectedOptionId={value}
         size="small"

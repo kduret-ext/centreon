@@ -57,7 +57,7 @@ const Modal = ({
       TransitionProps={
         {
           direction: 'up'
-        } as any
+        } as Record<string, unknown>
       }
       {...attr}
     >

@@ -11,7 +11,7 @@ import {
   $isTextNode,
   type LexicalEditor
 } from 'lexical';
-import { dec, equals, gt, isNil, replace } from 'ramda';
+import { dec, equals, gt, isNil } from 'ramda';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

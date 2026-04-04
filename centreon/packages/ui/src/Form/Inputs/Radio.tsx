@@ -55,7 +55,7 @@ const Radio = ({
         setValues,
         value,
         values
-      } as any);
+      } as Parameters<NonNullable<InputPropsWithoutGroup['change']>>[0]);
 
       return;
     }

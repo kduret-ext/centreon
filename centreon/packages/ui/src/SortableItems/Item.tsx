@@ -1,4 +1,4 @@
-import { type ForwardedRef, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 interface Props extends Record<string, unknown> {
   Content: (props: Record<string, unknown>) => JSX.Element;

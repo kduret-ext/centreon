@@ -21,7 +21,6 @@ import {
   pick,
   prop,
   propEq,
-  reduce,
   reject,
   slice,
   subtract,

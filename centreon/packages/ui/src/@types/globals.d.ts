@@ -18,6 +18,7 @@ declare module '*.svg' {
 }
 
 declare global {
+  // biome-ignore lint/style/noNamespace: required for global JSX type augmentation
   namespace JSX {
     type Element = React.JSX.Element;
     type IntrinsicElements = React.JSX.IntrinsicElements;

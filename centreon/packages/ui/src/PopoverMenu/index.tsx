@@ -6,7 +6,6 @@ import {
 } from '@mui/material';
 import type { PopperProps } from '@mui/material/Popper';
 
-import { equals, type } from 'ramda';
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
 

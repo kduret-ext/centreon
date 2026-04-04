@@ -36,14 +36,15 @@ const List = ({
           Content={
             ((props: Omit<ContentProps, 'children' | 'deleteItem'>) => (
               <Content {...props} deleteItem={deleteItem}>
-                <SortContent {...(props as any)} />
+                <SortContent {...(props as Record<string, unknown>)} />
               </Content>
+              // biome-ignore lint/suspicious/noExplicitAny: SortableItems Content type mismatch with wrapper
             )) as any
           }
           // eslint-disable-next-line react/no-unstable-nested-components
           collisionDetection={closestCenter}
           itemProps={itemProps}
-          items={sortedList as any}
+          items={sortedList as Array<{ id: string }>}
           onDragEnd={({ items }): void => {
             sortList(items);
           }}

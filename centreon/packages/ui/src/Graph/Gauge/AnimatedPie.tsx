@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { animated, to, useTransition } from '@react-spring/web';
 import type { PieArcDatum, ProvidedProps } from '@visx/shape/lib/shapes/Pie';
 import { equals, includes, isNil, pluck } from 'ramda';
+import type { ReactNode } from 'react';
 
 import type { Thresholds } from '../common/models';
 
@@ -22,13 +23,19 @@ const enterUpdateTransition = <T,>({
   startAngle
 });
 
+interface ShowTooltipArgs {
+  tooltipData: ReactNode;
+  tooltipLeft: number;
+  tooltipTop: number;
+}
+
 type AnimatedPieProps<Datum> = ProvidedProps<Datum> & {
   animate?: boolean;
   getColor: (d: PieArcDatum<Datum>) => string;
   getKey: (d: PieArcDatum<Datum>) => string;
   hideTooltip?: () => void;
   metric?: unknown;
-  showTooltip?: (args) => void;
+  showTooltip?: (args: ShowTooltipArgs) => void;
   thresholds: Thresholds;
 };
 
@@ -67,15 +74,19 @@ const AnimatedPie = <Datum,>({
             startAngle
           })
         )}
-        data-testid={`${(arc.data as any)?.value || arc.data}-arc`}
+        data-testid={`${(arc.data as Record<string, unknown>)?.value || arc.data}-arc`}
         display={
-          includes('transparent', (arc.data as any)?.name || '')
+          includes(
+            'transparent',
+            ((arc.data as Record<string, unknown>)?.name as string) || ''
+          )
             ? 'none'
             : 'inline'
         }
         fill={getColor(arc)}
         onMouseEnter={(event) => {
-          const thresholdType = (arc.data as any)?.name as string;
+          const thresholdType = (arc.data as Record<string, unknown>)
+            ?.name as string;
 
           if (equals(thresholdType, 'success')) {
             return;

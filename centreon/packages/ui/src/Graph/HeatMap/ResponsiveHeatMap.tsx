@@ -94,7 +94,7 @@ const ResponsiveHeatMap = <TData,>({
               arrow: cx(classes.heatMapTooltipArrow, arrowClassName),
               tooltip: classes.heatMapTooltip
             }}
-            data-testid={`tooltip-${(data as any)?.id}`}
+            data-testid={`tooltip-${(data as unknown as Record<string, unknown>)?.id}`}
             followCursor={false}
             hasCaret
             label={

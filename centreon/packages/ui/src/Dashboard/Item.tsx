@@ -107,7 +107,7 @@ const Item = ({
                   isExpanded,
                   key,
                   label,
-                  ref: ref as any,
+                  ref: ref as RefObject<HTMLDivElement>,
                   ...rest
                 })
               : (header as ReactElement);

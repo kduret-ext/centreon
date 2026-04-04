@@ -166,7 +166,7 @@ const useMutationQuery = <T extends object, TMeta>({
           : [optimisticListing?.queryKey];
 
         queryClient.invalidateQueries({
-          queryKey: listingQueryKey as string[]
+          queryKey: listingQueryKey as Array<string>
         });
       }
 

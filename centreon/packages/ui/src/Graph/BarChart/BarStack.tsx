@@ -133,8 +133,8 @@ export default memo(BarStack, (prevProps, nextProps) => {
       [...nextYScaleDomain, ...nextYScaleRange]
     ) &&
     equals(
-      pick(propsToMemoize as readonly (keyof Props)[], prevProps),
-      pick(propsToMemoize as readonly (keyof Props)[], nextProps)
+      pick(propsToMemoize as ReadonlyArray<keyof Props>, prevProps),
+      pick(propsToMemoize as ReadonlyArray<keyof Props>, nextProps)
     )
   );
 });

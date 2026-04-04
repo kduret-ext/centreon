@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ExpandableContainer = ({ children }: Props) => {
-  const { classes } = useStyles();
+  const { classes: _classes } = useStyles();
 
   const [isExpanded, setIsExpanded] = useState(false);
 

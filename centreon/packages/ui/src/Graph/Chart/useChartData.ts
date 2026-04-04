@@ -42,7 +42,7 @@ const defaultDsData = {
 };
 
 const useGraphData = ({ data }: Props): GraphDataResult => {
-  const adjustedDataRef = useRef<Data>(undefined as any);
+  const adjustedDataRef = useRef<Data | undefined>(undefined);
 
   const dataWithAdjustedMetricsColor = useMemo(() => {
     if (isNil(data)) {
@@ -66,19 +66,22 @@ const useGraphData = ({ data }: Props): GraphDataResult => {
     }));
 
     const metricsGroupedByColor = groupBy(
-      (metric: any) => metric.ds_data?.ds_color_line || '#000000'
+      (metric: (typeof metricsWithValidDsData)[number]) =>
+        metric.ds_data?.ds_color_line || '#000000'
     )(metricsWithValidDsData);
 
     const newMetrics = Object.entries(metricsGroupedByColor).map(
       ([color, value]) => {
-        const adjustedValue = value?.map((item: any) => ({
-          ...item,
-          ds_data: {
-            ...item?.ds_data,
-            ds_filled: getBoolean(item?.ds_data?.ds_filled),
-            ds_invert: getBoolean(item?.ds_data?.ds_invert)
-          }
-        }));
+        const adjustedValue = value?.map(
+          (item: (typeof metricsWithValidDsData)[number]) => ({
+            ...item,
+            ds_data: {
+              ...item?.ds_data,
+              ds_filled: getBoolean(item?.ds_data?.ds_filled),
+              ds_invert: getBoolean(item?.ds_data?.ds_invert)
+            }
+          })
+        );
 
         return adjustedValue?.map((metric, index) =>
           set(

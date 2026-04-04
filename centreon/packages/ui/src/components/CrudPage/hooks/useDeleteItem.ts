@@ -42,7 +42,7 @@ export const useDeleteItem = ({
       showSuccessMessage(
         (isAFunction(successMessage)
           ? (successMessage as (item: ItemToDelete) => string | ReactElement)(
-              _meta!
+              _meta as ItemToDelete
             )
           : successMessage) as string
       );

@@ -276,7 +276,11 @@ const Lines = ({
                     dashLength={style?.dashLength}
                     dashOffset={style?.dashOffset}
                     dotOffset={style?.dotOffset}
-                    filled={isNil(style?.showArea) ? filled : style.showArea!}
+                    filled={
+                      isNil(style?.showArea)
+                        ? filled
+                        : (style.showArea ?? false)
+                    }
                     graphHeight={height}
                     highlight={highlight}
                     lineColor={lineColor}
@@ -286,7 +290,7 @@ const Lines = ({
                     transparency={
                       isNil(style?.areaTransparency)
                         ? transparency || 80
-                        : style.areaTransparency!
+                        : (style.areaTransparency ?? 80)
                     }
                     unit={unit}
                     xScale={xScale}

@@ -138,11 +138,14 @@ const BarGroup = ({
   const neutralValue = useMemo(() => getNeutralValue(scaleType), [scaleType]);
 
   return (
-    <BarComponent<TimeValue>
+    // biome-ignore lint/suspicious/noExplicitAny: visx BarGroup/BarGroupHorizontal complex generics
+    <BarComponent<any>
+      // biome-ignore lint/suspicious/noExplicitAny: ScaleOrdinal vs GroupKey type mismatch
       color={colorScale as any}
       data={normalizedTimeSeries}
       height={size}
-      keys={sortedLineKeys as Array<keyof TimeValue>}
+      keys={sortedLineKeys}
+      // biome-ignore lint/suspicious/noExplicitAny: visx scale generics
       {...(barComponentBaseProps as any)}
     >
       {(barGroups) =>
@@ -196,8 +199,8 @@ export default memo(BarGroup, (prevProps, nextProps) => {
 
   return (
     equals(
-      pick(propsToMemoize as readonly (keyof Props)[], prevProps),
-      pick(propsToMemoize as readonly (keyof Props)[], nextProps)
+      pick(propsToMemoize as ReadonlyArray<keyof Props>, prevProps),
+      pick(propsToMemoize as ReadonlyArray<keyof Props>, nextProps)
     ) &&
     equals(prevYScale, nextYScale) &&
     equals(prevXScale, nextXScale)
