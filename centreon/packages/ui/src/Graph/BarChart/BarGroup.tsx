@@ -138,15 +138,15 @@ const BarGroup = ({
   const neutralValue = useMemo(() => getNeutralValue(scaleType), [scaleType]);
 
   return (
-    // biome-ignore lint/suspicious/noExplicitAny: visx BarGroup/BarGroupHorizontal complex generics
-    <BarComponent<any>
-      // biome-ignore lint/suspicious/noExplicitAny: ScaleOrdinal vs GroupKey type mismatch
-      color={colorScale as any}
+    // @ts-expect-error visx BarGroup/BarGroupHorizontal union: spread props satisfy required fields at runtime but TS cannot verify union spread
+    <BarComponent<TimeValue>
+      color={
+        colorScale as unknown as (key: number | string, index: number) => string
+      }
       data={normalizedTimeSeries}
       height={size}
-      keys={sortedLineKeys}
-      // biome-ignore lint/suspicious/noExplicitAny: visx scale generics
-      {...(barComponentBaseProps as any)}
+      keys={sortedLineKeys as Array<keyof TimeValue>}
+      {...barComponentBaseProps}
     >
       {(barGroups) =>
         barGroups.map((barGroup, index) => {

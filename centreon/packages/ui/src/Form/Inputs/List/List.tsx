@@ -38,10 +38,8 @@ const List = ({
               <Content {...props} deleteItem={deleteItem}>
                 <SortContent {...(props as Record<string, unknown>)} />
               </Content>
-              // biome-ignore lint/suspicious/noExplicitAny: SortableItems Content type mismatch with wrapper
-            )) as any
+            )) as never
           }
-          // eslint-disable-next-line react/no-unstable-nested-components
           collisionDetection={closestCenter}
           itemProps={itemProps}
           items={sortedList as Array<{ id: string }>}

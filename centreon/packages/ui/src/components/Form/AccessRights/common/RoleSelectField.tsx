@@ -1,5 +1,3 @@
-import type { SelectChangeEvent } from '@mui/material';
-
 import SelectField, { type SelectEntry } from '../../../../InputField/Select';
 import { useRoleSelectField } from './RoleSelectField.styles';
 
@@ -21,9 +19,6 @@ const RoleSelectField = ({
   disabled
 }: Props): JSX.Element => {
   const { classes } = useRoleSelectField();
-  const change = (event: SelectChangeEvent): void => {
-    onChange(event.target.value as string);
-  };
 
   return (
     <div className={classes.roleContainer}>
@@ -33,10 +28,9 @@ const RoleSelectField = ({
         formControlProps={{}}
         fullWidth
         label={label}
-        onChange={
-          // biome-ignore lint/suspicious/noExplicitAny: complex MUI SelectProps intersection type
-          change as any
-        }
+        onChange={(event) => {
+          onChange(event.target.value);
+        }}
         options={roles}
         selectedOptionId={value}
         size="small"

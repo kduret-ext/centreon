@@ -89,96 +89,96 @@ const Graph = ({
 
   return (
     <svg height={normalizedHeight} width="100%">
-      <BarStackComponent
-        color={colorScale}
-        data={[barStackData]}
-        keys={keys}
-        {
-          // biome-ignore lint/suspicious/noExplicitAny: visx BarStack complex Accessor types
-          ...({ x: () => 0, y: () => 0 } as any)
-        }
-        xScale={xScale}
-        yScale={yScale}
-      >
-        {(barStacks) =>
-          barStacks.map((barStack, index) =>
-            barStack.bars.map((bar) => {
-              const isFirstBar = equals(index, 0);
-              const isLastBar = equals(index, barStacks.length - 1);
-              const fitsInBar = getFitsInBar({ bar, isVerticalBar, unit });
+      {
+        // @ts-expect-error visx BarStack/BarStackHorizontal union: spread props satisfy required fields at runtime but TS cannot verify union spread
+        <BarStackComponent
+          color={colorScale}
+          data={[barStackData]}
+          keys={keys}
+          {...{ x: () => 0, y: () => 0 }}
+          xScale={xScale}
+          yScale={yScale}
+        >
+          {(barStacks) =>
+            barStacks.map((barStack, index) =>
+              barStack.bars.map((bar) => {
+                const isFirstBar = equals(index, 0);
+                const isLastBar = equals(index, barStacks.length - 1);
+                const fitsInBar = getFitsInBar({ bar, isVerticalBar, unit });
 
-              const textX = bar.x + bar.width / 2;
-              const textY = bar.y + bar.height / 2;
+                const textX = bar.x + bar.width / 2;
+                const textY = bar.y + bar.height / 2;
 
-              const click = getClick({ bar, onSingleBarClick });
+                const click = getClick({ bar, onSingleBarClick });
 
-              return (
-                <Tooltip
-                  classes={classes}
-                  followCursor={false}
-                  key={`bar-stack-${barStack.index}-${bar.index}`}
-                  label={
-                    TooltipContent && (
-                      <TooltipContent
-                        color={bar.color}
-                        label={bar.key}
-                        total={total}
-                        value={
-                          (barStack.bars[0].bar.data as Record<string, number>)[
-                            barStack.key as string
-                          ]
-                        }
-                        {...tooltipProps}
-                      />
-                    )
-                  }
-                  position={isVerticalBar ? 'right' : 'bottom'}
-                >
-                  <g data-testid={bar.key} key={bar.key}>
-                    <BarRounded
-                      bottom={isVerticalBar && isFirstBar}
-                      cursor={onSingleBarClick ? 'pointer' : 'default'}
-                      fill={bar.color}
-                      height={bar.height}
-                      key={`bar-stack-${barStack.index}-${bar.index}`}
-                      left={!isVerticalBar && isFirstBar}
-                      onMouseDown={click}
-                      radius={8}
-                      right={!isVerticalBar && isLastBar}
-                      top={isVerticalBar && isLastBar}
-                      width={isVerticalBar ? bar.width - 10 : bar.width}
-                      x={bar.x}
-                      y={bar.y}
-                    />
-                    {displayValues && fitsInBar && (
-                      <Text
+                return (
+                  <Tooltip
+                    classes={classes}
+                    followCursor={false}
+                    key={`bar-stack-${barStack.index}-${bar.index}`}
+                    label={
+                      TooltipContent && (
+                        <TooltipContent
+                          color={bar.color}
+                          label={bar.key}
+                          total={total}
+                          value={
+                            (barStack.bars[0].bar.data as Record<string, number>)[
+                              barStack.key as string
+                            ]
+                          }
+                          {...tooltipProps}
+                        />
+                      )
+                    }
+                    position={isVerticalBar ? 'right' : 'bottom'}
+                  >
+                    <g data-testid={bar.key} key={bar.key}>
+                      <BarRounded
+                        bottom={isVerticalBar && isFirstBar}
                         cursor={onSingleBarClick ? 'pointer' : 'default'}
-                        data-testid="value"
-                        fill="#000"
-                        fontSize={12}
-                        fontWeight={600}
-                        onMouseUp={click}
-                        textAnchor="middle"
-                        verticalAnchor="middle"
-                        x={textX}
-                        y={textY}
-                      >
-                        {getValueByUnit({
-                          total,
-                          unit: unit || 'number',
-                          value: (
-                            barStack.bars[0].bar.data as Record<string, number>
-                          )[barStack.key as string]
-                        })}
-                      </Text>
-                    )}
-                  </g>
-                </Tooltip>
-              );
-            })
-          )
-        }
-      </BarStackComponent>
+                        fill={bar.color}
+                        height={bar.height}
+                        key={`bar-stack-${barStack.index}-${bar.index}`}
+                        left={!isVerticalBar && isFirstBar}
+                        onMouseDown={click}
+                        radius={8}
+                        right={!isVerticalBar && isLastBar}
+                        top={isVerticalBar && isLastBar}
+                        width={isVerticalBar ? bar.width - 10 : bar.width}
+                        x={bar.x}
+                        y={bar.y}
+                      />
+                      {displayValues && fitsInBar && (
+                        <Text
+                          cursor={onSingleBarClick ? 'pointer' : 'default'}
+                          data-testid="value"
+                          fill="#000"
+                          fontSize={12}
+                          fontWeight={600}
+                          onMouseUp={click}
+                          textAnchor="middle"
+                          verticalAnchor="middle"
+                          x={textX}
+                          y={textY}
+                        >
+                          {getValueByUnit({
+                            total,
+                            unit: unit || 'number',
+                            value: (
+                              barStack.bars[0].bar.data as Record<string, number>
+                            )[barStack.key as string]
+                          })}
+                        </Text>
+                      )}
+                    </g>
+                  </Tooltip>
+                );
+              })
+            )
+          }
+        </BarStackComponent>
+      }
     </svg>
   );
 };
