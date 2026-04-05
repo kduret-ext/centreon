@@ -20,9 +20,7 @@ const CheckboxGroup = ({
 
   const fieldNamePath = split('.', fieldName);
 
-  const value = path(fieldNamePath, values) as
-    | Array<string>
-    | undefined;
+  const value = path(fieldNamePath, values) as Array<string> | undefined;
 
   const disabled = getDisabled?.(values) || false;
   const hideCheckbox = hideInput?.(values) || false;

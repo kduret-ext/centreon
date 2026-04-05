@@ -1,5 +1,6 @@
 import { scaleBand, scaleOrdinal } from '@visx/scale';
 import { BarGroupHorizontal, BarGroup as VisxBarGroup } from '@visx/shape';
+import type { BarGroup as BarGroupData } from '@visx/shape/lib/types/barGroup';
 import type { ScaleLinear } from 'd3-scale';
 import { difference, equals, keys, omit, pick } from 'ramda';
 import { memo, useMemo } from 'react';
@@ -48,11 +49,6 @@ const BarGroup = ({
   const isHorizontal = equals(orientation, 'horizontal');
 
   const [firstUnit] = getUnits(lines);
-
-  const BarComponent = useMemo(
-    () => (isHorizontal ? VisxBarGroup : BarGroupHorizontal),
-    [isHorizontal]
-  );
 
   const stackedLines = getSortedStackedLines(lines);
   const notStackedLines = difference(lines, stackedLines);
@@ -107,7 +103,7 @@ const BarGroup = ({
   );
   const metricScale = useMemo(
     () =>
-      scaleBand({
+      scaleBand<string>({
         domain: lineKeys,
         padding: 0.1,
         range: [0, xScale.bandwidth()]
@@ -117,59 +113,69 @@ const BarGroup = ({
 
   const placeholderScale = yScalesPerUnit[firstUnit];
 
-  const barComponentBaseProps = useMemo(
-    () =>
-      isHorizontal
-        ? {
-            x0: getTime,
-            x0Scale: xScale,
-            x1Scale: metricScale,
-            yScale: placeholderScale
-          }
-        : {
-            xScale: placeholderScale,
-            y0: getTime,
-            y0Scale: xScale,
-            y1Scale: metricScale
-          },
-    [isHorizontal, placeholderScale, xScale, metricScale]
-  );
-
   const neutralValue = useMemo(() => getNeutralValue(scaleType), [scaleType]);
 
-  return (
-    // @ts-expect-error visx BarGroup/BarGroupHorizontal union: spread props satisfy required fields at runtime but TS cannot verify union spread
-    <BarComponent<TimeValue>
-      color={
-        colorScale as unknown as (key: number | string, index: number) => string
-      }
-      data={normalizedTimeSeries}
-      height={size}
-      keys={sortedLineKeys as Array<keyof TimeValue>}
-      {...barComponentBaseProps}
-    >
-      {(barGroups) =>
-        barGroups.map((barGroup, index) => {
-          return (
+  const commonBarProps = {
+    color: colorScale as unknown as (key: string, index: number) => string,
+    data: normalizedTimeSeries,
+    keys: sortedLineKeys as Array<string>
+  };
+
+  const memoizedGroupProps = {
+    barStyle,
+    isHorizontal,
+    isTooltipHidden,
+    neutralValue,
+    notStackedLines,
+    notStackedTimeSeries,
+    stackedLinesTimeSeriesPerStackKeyAndUnit,
+    yScalesPerUnit
+  };
+
+  if (isHorizontal) {
+    return (
+      <VisxBarGroup<TimeValue, string>
+        {...commonBarProps}
+        height={size}
+        x0={getTime}
+        x0Scale={xScale}
+        x1Scale={metricScale}
+        yScale={placeholderScale}
+      >
+        {(barGroups) =>
+          barGroups.map((barGroup, index) => (
             <MemoizedGroup
+              {...memoizedGroupProps}
               barGroup={barGroup}
               barIndex={index}
-              barStyle={barStyle}
-              isHorizontal={isHorizontal}
-              isTooltipHidden={isTooltipHidden}
               key={`bar-group-${barGroup.index}-${barGroup.x0}`}
-              neutralValue={neutralValue}
-              notStackedLines={notStackedLines}
-              notStackedTimeSeries={notStackedTimeSeries}
-              stackedLinesTimeSeriesPerStackKeyAndUnit={
-                stackedLinesTimeSeriesPerStackKeyAndUnit
-              }
-              yScalesPerUnit={yScalesPerUnit}
             />
-          );
-        })
+          ))
+        }
+      </VisxBarGroup>
+    );
+  }
+
+  return (
+    <BarGroupHorizontal<TimeValue, string>
+      {...commonBarProps}
+      width={size}
+      xScale={placeholderScale}
+      y0={getTime}
+      y0Scale={xScale}
+      y1Scale={metricScale}
+    >
+      {(barGroups) =>
+        barGroups.map((barGroup, index) => (
+          <MemoizedGroup
+            {...memoizedGroupProps}
+            barGroup={barGroup as unknown as BarGroupData<string>}
+            barIndex={index}
+            key={`bar-group-${barGroup.index}-${barGroup.y0}`}
+          />
+        ))
       }
-    </BarComponent>
+    </BarGroupHorizontal>
   );
 };
 
