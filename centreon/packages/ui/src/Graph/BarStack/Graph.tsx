@@ -174,11 +174,11 @@ const Graph = ({
   return (
     <svg height={normalizedHeight} width="100%">
       {isVerticalBar ? (
-        <BarStackVertical {...commonStackProps} x={() => 0}>
+        <BarStackVertical {...commonStackProps} x={() => undefined}>
           {renderBarStacks}
         </BarStackVertical>
       ) : (
-        <BarStackHorizontal {...commonStackProps} y={() => 0}>
+        <BarStackHorizontal {...commonStackProps} y={() => undefined}>
           {renderBarStacks}
         </BarStackHorizontal>
       )}

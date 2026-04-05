@@ -159,6 +159,7 @@ const BarGroup = ({
   return (
     <BarGroupHorizontal<TimeValue, string>
       {...commonBarProps}
+      height={size}
       width={size}
       xScale={placeholderScale}
       y0={getTime}
@@ -171,7 +172,7 @@ const BarGroup = ({
             {...memoizedGroupProps}
             barGroup={barGroup as unknown as BarGroupData<string>}
             barIndex={index}
-            key={`bar-group-${barGroup.index}-${barGroup.y0}`}
+            key={`bar-group-${barGroup.index}-${(barGroup as unknown as { x0: number }).x0}`}
           />
         ))
       }
